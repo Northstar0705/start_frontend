@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import logo from '../assets/logo.svg'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -8,6 +8,13 @@ import {useNavigate} from 'react-router-dom'
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
+  const captchaRef = useRef(null)
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    const token = captchaRef.current.getValue()
+    captchaRef.current.reset()
+  }
   return (
     <div className='flex'>
       {/* left */}
@@ -51,7 +58,7 @@ const Signup = () => {
           </div>
           <div>
             <span>Captcha</span>
-            <ReCAPTCHA sitekey="6LckUS8pAAAAAL8bGHK_t8V2zkE1LtHgqPfXkHHQ" />
+            <ReCAPTCHA ref={captchaRef} sitekey="6LckUS8pAAAAAL8bGHK_t8V2zkE1LtHgqPfXkHHQ" />
           </div>
           <div className='bg-[#118577] text-white text-center rounded-md py-2 text-sm font-medium'>Sign Up</div>
           <div className='flex flex-col w-full gap-5'>
