@@ -15,7 +15,7 @@ const Navbar = () => {
           <h1 className='text-[#363F54] font-bold'>Find a mentor</h1>
           <ArrowDropDownIcon sx={{ color: '#00D1B2' }} />
         </div>
-        <div className='flex gap-1 items-center cursor-pointer font-bold'>Become a mentor</div>
+        <div className='flex gap-1 text-[#363F54] items-center cursor-pointer font-bold'>Become a mentor</div>
         <h1 className='text-[#363F54] font-bold cursor-pointer'>Book a session</h1>
         <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'>
           <span className='text-[#057A55] font-semibold font-sans' onClick={() => { navigate("/signup") }}>Getting Started</span>
