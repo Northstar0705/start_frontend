@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { TypeAnimation } from 'react-type-animation'
 import { Button } from '@mui/material'
@@ -6,14 +6,24 @@ import boat from '../assets/boat.svg'
 import edit from '../assets/edit.svg'
 import rocket from '../assets/rocket.svg'
 import Footer from '../components/Footer'
+import AddIcon from '@mui/icons-material/Add';
 
 const Landing = () => {
+  const [openans, setOpenans] = useState(false);
+  const [id, setId] = useState('');
+
+  const data = [
+    { id: 0, question: "What is North Star ?", answer: "The mentor mentee website is designed to connect individuals who are seeking mentorship with experienced professionals who are willing to share their knowledge and expertise. This website serves as a platform for mentees to find mentors in their desired field or industry, and for mentors to offer guidance and support." },
+    { id: 1, question: "Motivation for North Star?", answer: "In recognizing the pivotal role mentorship plays in personal development, our group is motivated to address the challenges faced by both mentors and mentees in finding ideal matches. 'North Star' seeks to be the guiding force that bridges the gap and facilitates purposeful connections, making the mentorship journey a seamless and enriching experience." },
+    { id: 2, question: "Literature Review ?", answer: "Mentorship has emerged as a cornerstone in personal and professional development, especially within the rapidly evolving landscape of technology. The significance of mentorship in fostering career advancement and skill acquisition is well-documented (Higgins & Kram, 2001). As individuals navigate the complexities of the tech industry, mentorship becomes a vital component in providing guidance, support, and opportunities for growth. " },
+    { id: 3, question: "Working Principle of North Star ?", answer: "The mentor-mentee site features a scalable and robust system architecture designed to facilitate effective mentorship relationships. The architecture employs a microservices-based approach, allowing for modular development and easy scalability. The system comprises user authentication and authorization services to ensure secure access, a database for storing user profiles and interaction history. " },
+  ]
   return (
     <div className='bg-[#F9FAFB] h-full w-full'>
       <Navbar />
       <div className='flex flex-col gap-12'>
-        <div className='flex flex-col justify-center items-center h-full gap-10'>
-          <h1 className='text-[#172E59] font-normal text-[20px] leading-7'>Learn a new skill, launch a project, land your dream career.</h1>
+        <div className='flex flex-col justify-center items-center h-full gap-3'>
+          <h1 className='text-[#172E59] font-normal leading-7 mt-5 '>Learn a new skill, launch a project, land your dream career.</h1>
           <div className='flex flex-col items-center'>
             <div className='flex gap-1'>
               <span className='text-[60px] text-[#172E59] font-bold'>1-on-1 </span>
@@ -96,7 +106,24 @@ const Landing = () => {
             </div>
           </div>
         </div>
-        <Footer/>
+        <div className='flex flex-col gap-5 px-20'>
+          <h1 className='text-4xl text-[#172E59] font-bold flex justify-center'>Frequently Asked Questions</h1>
+          {data.map((value, i) => (
+            <div className='bg-[#F2F2F7] p-5 shadow-md w-full'>
+              <div className=' flex justify-between'>
+                <span className='text-2xl font-semibold'>{value.question}</span>
+                <div onClick={() => { setOpenans(!openans); setId(i) }}>
+                  <AddIcon sx={{ cursor: "pointer", transform: openans && id === value.id ? "rotate(45deg)" : "" }} />
+                </div>
+              </div>
+              {openans && id === value.id &&
+                <div className='text-xl text-[#101828]'>
+                  {value.answer}
+                </div>}
+            </div>
+          ))}
+        </div>
+        <Footer />
       </div>
     </div>
   )
