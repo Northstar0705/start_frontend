@@ -1,7 +1,7 @@
 import Landing from './pages/Landing';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Signup from './page/Signup.jsx';
-import Login from './page/Login.jsx';
+import Signup from './pages/Signup.jsx';
+import Login from './pages/Login.jsx';
 
 function App() {
   return (
