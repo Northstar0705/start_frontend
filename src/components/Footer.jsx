@@ -7,7 +7,7 @@ import linkedin from '../assets/linkedin.png';
 
 const Footer = () => {
     return (
-        <div className='flex px-32 py-10 w-full justify-between'>
+        <div className='flex px-20 py-10 w-full justify-between'>
             <div className='flex flex-col gap-5'>
                 <div className='flex gap-2 items-center'>
                     <img src={logo} alt="logo" style={{ width: '44px', height: '44px' }} />
