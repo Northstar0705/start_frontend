@@ -14,7 +14,7 @@ const Landing = () => {
       <div className='flex flex-col gap-12'>
         <div className='flex flex-col justify-center items-center h-full gap-10'>
           <h1 className='text-[#172E59] font-normal text-[20px] leading-7'>Learn a new skill, launch a project, land your dream career.</h1>
-          <div>
+          <div className='flex flex-col items-center'>
             <div className='flex gap-1'>
               <span className='text-[60px] text-[#172E59] font-bold'>1-on-1 </span>
               <TypeAnimation
