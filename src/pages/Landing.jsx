@@ -9,7 +9,7 @@ import Footer from '../components/Footer'
 
 const Landing = () => {
   return (
-    <div className='bg-[#F9FAFB] h-full '>
+    <div className='bg-[#F9FAFB] h-full w-full'>
       <Navbar />
       <div className='flex flex-col gap-12'>
         <div className='flex flex-col justify-center items-center h-full gap-10'>
@@ -75,24 +75,24 @@ const Landing = () => {
         </div>
         <div className='bg-[#172E59] w-full flex flex-col items-center p-10 gap-10'>
           <div className='w-1/2 flex flex-col gap-5 items-center'>
-            <span className='text-white text-3xl font-bold'>At your fingertips: a dedicated career coach.</span>
+            <span className='text-white text-3xl text-center font-bold'>At your fingertips: a dedicated career coach.</span>
             <span className='text-white text-md font-semibold'>Want to ace your next job interview ? Successfully build a startup? Itching to learn high-demand skills? Our coaches are here to help you navigate your career journey, from finding your next job to planning your career path.</span>
           </div>
           <div className='flex gap-3 justify-center '>
-            <div className='flex flex-col flex-wrap gap-5 items-center'>
+            <div className='flex flex-col w-[400px] flex-wrap gap-5 items-center'>
               <span className='text-white text-2xl font-bold'>Find Your Mentor</span>
               <img src={boat} alt="boat" />
-              <span className='text-white text-base text-center w-1/2'>Explore our growing catalogue of experienced mentors until you find the perfect fit.</span>
+              <span className='text-white w-2/3 text-base text-center'>Explore our growing catalogue of experienced mentors until you find the perfect fit.</span>
             </div>
-            <div className='flex flex-col flex-wrap gap-5 items-center'>
+            <div className='flex flex-col w-[400px] flex-wrap gap-5 items-center'>
               <span className='text-white text-2xl font-bold'>Apply for Mentorship</span>
               <img src={edit} alt="edit" />
-              <span className='text-white text-base text-center w-1/2'>Fill in an application, and if you’re a match with your chosen mentor you can start your free 7-day trial.</span>
+              <span className='text-white w-2/3 text-base text-center'>Fill in an application, and if you’re a match with your chosen mentor you can start your free 7-day trial.</span>
             </div>
-            <div className='flex flex-col flex-wrap gap-5 items-center'>
+            <div className='flex flex-col w-[400px] flex-wrap gap-5 items-center'>
               <span className='text-white text-2xl font-bold'>Level up your skills</span>
               <img src={rocket} alt="rocket" />
-              <span className='text-white text-base text-center w-1/2'>From personal chats to hands-on support, each mentor offers different services to help you skyrocket your career.</span>
+              <span className='text-white w-2/3 text-base text-center'>From personal chats to hands-on support, each mentor offers different services to help you skyrocket your career.</span>
             </div>
           </div>
         </div>
