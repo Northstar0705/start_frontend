@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from '../assets/logo.svg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { useNavigate } from 'react-router';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className='bg-[#F9FAFB] justify-around flex p-4 shadow-sm'>
@@ -20,9 +22,9 @@ const Navbar = () => {
           </div>
           <h1 className='text-[#363F54] font-bold cursor-pointer'>Book a session</h1>
           <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'> 
-            <span className='text-[#057A55] font-semibold font-sans'>Getting Started</span>
+            <span className='text-[#057A55] font-semibold font-sans'onClick={()=>{navigate("/signup")}}>Getting Started</span>
           </div>
-          <h1 className='text-[#363F54] font-bold cursor-pointer'>Login</h1>
+          <h1 className='text-[#363F54] font-bold cursor-pointer'onClick={()=>{navigate("/login")}}>Login</h1>
         </div>
       </div>
     </div>
