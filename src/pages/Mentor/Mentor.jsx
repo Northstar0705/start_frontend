@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar'
 import { Button } from '@mui/material'
 import profile from '../../assets/profile.png'
@@ -10,6 +11,7 @@ import airbnb from '../../assets/airbnb.svg'
 import Footer from '../../components/Footer'
 
 const Mentor = () => {
+    const navigate = useNavigate()
     return (
         <div className='flex flex-col'>
             <div className='h-screen' style={{ background: "linear-gradient(144.88deg, rgba(255, 255, 255, 0.3) -3.98%, rgba(75, 173, 239, 0.2) 21.27%, rgba(0, 183, 155, 0.6) 71.28%)" }}>
@@ -22,7 +24,7 @@ const Mentor = () => {
                     </div>
                     <div className='flex flex-col items-center mt-3 gap-10'>
                         <span className='text-gray-700 text-[20px] text-center'>Mentoring is a two-way street. Let us take care of the boring parts so you can <br /> concentrate on personal and professional growth for both you and your mentees.</span>
-                        <Button variant='contained' sx={{ background: "#1C3D7A", fontWeight: "bold", textTransform: "capitalize", padding: "8px 28px", fontSize: "16px", ":hover": { background: "#1C3D7A" } }}>Become a Mentor</Button>
+                        <Button onClick={()=>navigate('/mentor/apply')} variant='contained' sx={{ background: "#1C3D7A", fontWeight: "bold", textTransform: "capitalize", padding: "8px 28px", fontSize: "16px", ":hover": { background: "#1C3D7A" } }}>Become a Mentor</Button>
                     </div>
                 </div>
             </div>
