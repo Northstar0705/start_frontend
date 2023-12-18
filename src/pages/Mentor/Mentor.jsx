@@ -11,7 +11,7 @@ import Footer from '../../components/Footer'
 
 const Mentor = () => {
     return (
-        <div className='flex flex-col relative'>
+        <div className='flex flex-col'>
             <div className='h-screen' style={{ background: "linear-gradient(144.88deg, rgba(255, 255, 255, 0.3) -3.98%, rgba(75, 173, 239, 0.2) 21.27%, rgba(0, 183, 155, 0.6) 71.28%)" }}>
                 <Navbar path={"mentor"} />
                 <div className='flex flex-col'>
@@ -27,7 +27,7 @@ const Mentor = () => {
                 </div>
             </div>
             <div className='bg-[#1F2937] h-[120vh]'>
-                <div className='absolute top-[26rem] p-32 '>
+                <div className='absolute top-[26rem] p-32 z-0'>
                     <img src={profile} alt="profile" style={{ borderRadius: "10px" }} />
                     <div className='flex flex-col items-center mt-10 gap-5'>
                         <span className='text-gray-400 font-semibold text-base'>JOIN AN AMBITIOUS NETWORK OF EDUCATORS AND LEADERS</span>
