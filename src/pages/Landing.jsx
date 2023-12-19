@@ -6,6 +6,7 @@ import boat from '../assets/boat.svg'
 import edit from '../assets/edit.svg'
 import rocket from '../assets/rocket.svg'
 import Footer from '../components/Footer'
+import Testimonials from '../components/Testimonials'
 
 const Landing = () => {
   return (
@@ -96,6 +97,8 @@ const Landing = () => {
             </div>
           </div>
         </div>
+        
+            <Testimonials />
         <Footer/>
       </div>
     </div>
