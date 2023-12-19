@@ -24,11 +24,11 @@ const Mentor = () => {
                     </div>
                     <div className='flex flex-col items-center mt-3 gap-10'>
                         <span className='text-gray-700 text-[20px] text-center'>Mentoring is a two-way street. Let us take care of the boring parts so you can <br /> concentrate on personal and professional growth for both you and your mentees.</span>
-                        <Button onClick={()=>navigate('/mentor/apply')} variant='contained' sx={{ background: "#1C3D7A", fontWeight: "bold", textTransform: "capitalize", padding: "8px 28px", fontSize: "16px", ":hover": { background: "#1C3D7A" } }}>Become a Mentor</Button>
+                        <Button onClick={()=>navigate('/mentor/apply')} variant='contained' sx={{ background: "#1C3D7A", fontWeight: "bold", textTransform: "capitalize", padding: "8px 28px", fontSize: "16px",cursor:"pointer", ":hover": { background: "#1C3D7A" }}}>Become a Mentor</Button>
                     </div>
                 </div>
             </div>
-            <div className='bg-[#1F2937] h-[120vh]'>
+            <div className='bg-[#1F2937] h-[150vh]'>
                 <div className='absolute top-[26rem] p-32 z-0'>
                     <img src={profile} alt="profile" style={{ borderRadius: "10px" }} />
                     <div className='flex flex-col items-center mt-10 gap-5'>
