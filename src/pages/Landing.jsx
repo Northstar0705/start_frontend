@@ -6,7 +6,9 @@ import boat from '../assets/boat.svg'
 import edit from '../assets/edit.svg'
 import rocket from '../assets/rocket.svg'
 import Footer from '../components/Footer'
+import Testimonials from '../components/Testimonials'
 import AddIcon from '@mui/icons-material/Add';
+
 
 const Landing = () => {
   const [openans, setOpenans] = useState(false);
@@ -106,6 +108,11 @@ const Landing = () => {
             </div>
           </div>
         </div>
+
+        
+            <Testimonials />
+        <Footer/>
+
         <div className='flex flex-col gap-5 px-20'>
           <h1 className='text-4xl text-[#172E59] font-bold flex justify-center'>Frequently Asked Questions</h1>
           {data.map((value, i) => (
@@ -124,6 +131,7 @@ const Landing = () => {
           ))}
         </div>
         <Footer />
+
       </div>
     </div>
   )
