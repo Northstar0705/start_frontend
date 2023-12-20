@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Alert, AlertTitle } from "@mui/material";
 const Login = () => {
   const navigate = useNavigate();
   const [isMentee, setIsMentee] = useState(true);
   const [initial, setInitial] = useState(true);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  
+
+  const [message, setMessage] = useState("");
+  const [warning, setWarning] = useState("");
+
   useEffect(() => {
     if (initial) setInitial(false);
     else {
@@ -22,19 +27,44 @@ const Login = () => {
   }, [isMentee, initial]);
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData
-      );
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
+    if (formData.email !== "" && formData.password !== "") {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          formData
+        );
+        console.log(response);
+        if (response.status === 200) {
+          navigate("/mentee/home");
+        }
+      } catch (err) {
+        console.log(err);
+        //  set message we have to set setMessage as error
+        setWarning("error")
+        setMessage(err.response.data.message);
+      }
+    }
+    else{
+      setWarning("warning")
+      setMessage("Please fill all the inputs")
     }
   };
+  // function for alert from material ui
+  useEffect(() => {
+    if (message !== "") {
+      setTimeout(() => {
+        setMessage("");
+      }, 5000);
+    }
+  }, [message]);
+
   return (
     <div className="w-full flex h-full">
+      {message && (
+        <Alert severity={warning} className="absolute top-7 right-2">
+          <AlertTitle>{message}</AlertTitle>
+        </Alert>
+      )}
       {/* left */}
       <div className="w-1/3">
         <div className="bg-[#172e59] w-1/3 h-screen fixed flex items-center justify-center">
