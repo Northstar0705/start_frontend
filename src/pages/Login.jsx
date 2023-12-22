@@ -162,7 +162,7 @@ const Login = () => {
                 Sign up as a mentee
               </span>{" "}
               or{" "}
-              <span className="cursor-pointer underline text-[#118577] font-medium">
+              <span onClick={()=>navigate('/mentor')} className="cursor-pointer underline text-[#118577] font-medium">
                 apply to be a mentor
               </span>
             </div>

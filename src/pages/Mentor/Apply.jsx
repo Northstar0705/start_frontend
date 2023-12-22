@@ -1,8 +1,10 @@
 import React, { useRef, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
-import axios from 'axios'   
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const Apply = () => {
+    const navigate =  useNavigate()
     const [page, setPage] = useState(1)
     const [initial, setInitial] = useState(true)
     const [formData, setFormData] = useState({
@@ -62,14 +64,14 @@ const Apply = () => {
     }
 
 
-    const handleSubmit = async() =>{
-        if(formData.whyMentor && formData.greatestAchievement){
-            try{
+    const handleSubmit = async () => {
+        if (formData.whyMentor && formData.greatestAchievement) {
+            try {
                 formData.profilePicture = "koibhilink.com"
-                const {data} = await axios.post('http://localhost:5000/api/auth/apply', formData)
+                const { data } = await axios.post('http://localhost:5000/api/auth/apply', formData)
                 console.log(data)
                 setPage(p => p + 1)
-            }catch(err){
+            } catch (err) {
                 console.log(err)
             }
         }
@@ -258,6 +260,10 @@ const Apply = () => {
                             <textarea value={formData.greatestAchievement} onChange={(e) => setFormData({ ...formData, greatestAchievement: e.target.value })} name="" id="" rows="5" className='border-gray-400 border outline-blue-600 p-2 rounded-md resize-none'></textarea>
                         </div>
                     </div>}
+                    {page === 4 && <div className='w-full flex items-center px-2 flex-col gap-5 text-gray-500'>
+                        <div className=''>Thank you for expressing your interest in becoming a mentor in our program! Your form has been successfully submitted.<br/> Our team will review your information, and if you are selected for the program, we will reach out to you shortly. In the meantime, feel free to explore more about our organization.<br/> We appreciate your enthusiasm, and we'll notify you via email about the status of your application.</div>
+                        <button onClick={()=>navigate('/mentor')} className='px-5 py-2 bg-[#118577] w-max text-white rounded-md'>Go to home</button>
+                    </div>}
                     {page !== 4 && <div className='flex text-sm items-center'>
                         {page > 1 && <div className='w-full flex justify-start'>
                             <button onClick={() => setPage(p => p - 1)} className='text-white bg-blue-900 w-max py-2 px-3 rounded-md'>Previous Step</button>
@@ -272,7 +278,7 @@ const Apply = () => {
                 </div>
             </div>
             <Footer />
-        </div>
+        </div >
     )
 }
 
