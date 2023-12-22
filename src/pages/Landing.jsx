@@ -20,7 +20,7 @@ const Landing = () => {
   ]
   return (
     <div className='bg-[#F9FAFB] h-full w-full'>
-      <Navbar />
+      <Navbar loggedIn={false} />
       <div className='flex flex-col gap-12'>
         <div className='flex flex-col justify-center items-center h-full gap-3'>
           <h1 className='text-[#172E59] font-normal leading-7 mt-5 '>Learn a new skill, launch a project, land your dream career.</h1>
