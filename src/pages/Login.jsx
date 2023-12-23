@@ -3,10 +3,13 @@ import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Alert, AlertTitle } from "@mui/material";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 const Login = () => {
   const navigate = useNavigate();
   const [isMentee, setIsMentee] = useState(true);
   const [initial, setInitial] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -44,7 +47,7 @@ const Login = () => {
         setMessage(err.response.data.message);
       }
     }
-    else{
+    else {
       setWarning("warning")
       setMessage("Please fill all the inputs")
     }
@@ -80,20 +83,18 @@ const Login = () => {
           <div className="flex w-full">
             <div
               onClick={() => setIsMentee(true)}
-              className={`py-2.5 cursor-pointer hover:text-black text-center w-1/2 ${
-                !isMentee
+              className={`py-2.5 cursor-pointer hover:text-black text-center w-1/2 ${!isMentee
                   ? "border-b text-gray-500"
                   : "border-b-2 border-[#118577] text-black"
-              }`}
+                }`}
             >
               I'm a mentee
             </div>
             <div
-              className={`w-1/2 text-center cursor-pointer hover:text-black py-2.5 ${
-                isMentee
+              className={`w-1/2 text-center cursor-pointer hover:text-black py-2.5 ${isMentee
                   ? "border-b text-gray-500"
                   : "border-b-2 border-[#118577] text-black"
-              } `}
+                } `}
               onClick={() => setIsMentee(false)}
             >
               I'm a mentor
@@ -113,11 +114,21 @@ const Login = () => {
             />
           </div>
           <div className="flex flex-col">
-            <div className="text-gray-600 font-medium text-[15px]">
-              Password
+            <div className="flex justify-between items-center">
+              <span className="text-gray-600 font-medium text-[15px]"> Password</span>
+              <div
+                className="flex items-center justify-center justify-self-center text-[#118577] gap-1.5 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? (
+                  <VisibilityOffOutlinedIcon sx={{ width: "15px" }} />
+                ) : (
+                  <VisibilityOutlinedIcon sx={{ width: "15px" }} />
+                )}
+                <div>{!showPassword ? "Show" : "Hide"}</div>
+              </div>
             </div>
             <input
-              type="text"
+              type={showPassword ? "text" : "password"}
               onChange={(e) => {
                 setFormData({ ...formData, password: e.target.value });
               }}
@@ -162,7 +173,7 @@ const Login = () => {
                 Sign up as a mentee
               </span>{" "}
               or{" "}
-              <span onClick={()=>navigate('/mentor')} className="cursor-pointer underline text-[#118577] font-medium">
+              <span onClick={() => navigate('/mentor')} className="cursor-pointer underline text-[#118577] font-medium">
                 apply to be a mentor
               </span>
             </div>
