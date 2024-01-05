@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo1.svg'
+import logo1 from '../assets/logo.svg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router';
 import { Avatar } from '@mui/material';
@@ -11,8 +12,8 @@ const Navbar = ({ path, loggedIn }) => {
   return (
     <div>
       {!loggedIn && <div className='flex justify-between py-4 px-20 shadow-sm'>
-        <div className='container w-max flex'>
-          <img src={logo} alt="logo" style={{ width: '44px', height: '44px' }} />
+        <div className='container w-max flex  '>
+          <img src={logo1} alt="logo" style={{ width: '36px', height: '36px' }} />
         </div>
         <div className='flex items-center gap-10 '>
           <div className='flex gap-1 items-center cursor-pointer'>
