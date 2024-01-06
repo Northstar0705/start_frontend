@@ -4,11 +4,14 @@ import Signup from './pages/Signup.jsx';
 import Login from './pages/Login.jsx';
 import Apply from './pages/Mentor/Apply.jsx';
 import Mentor from './pages/Mentor/Mentor.jsx';
+
 import Home from './pages/Home.jsx';
 import AdminLogin from './pages/Admin/AdminLogin.jsx';
 import AdminDashboard from './pages/Admin/AdminDashboard.jsx';
 import ManageUsers from './pages/Admin/ManageUsers.jsx';
 import MentorApllications from './pages/Admin/MentorApllications.jsx';
+import Settings from './pages/Settings.jsx';
+
 
 function App() {
   return (
@@ -24,6 +27,10 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<ManageUsers />} />
         <Route path="/admin/applications" element={<MentorApllications />} />
+
+        <Route path="/mentee/home" element={<Home/>} />
+        <Route path='/settings' element={<Settings />} />
+
       </Routes>
     </div>
   );
