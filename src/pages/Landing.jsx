@@ -6,7 +6,7 @@ import boat from '../assets/boat.svg'
 import edit from '../assets/edit.svg'
 import rocket from '../assets/rocket.svg'
 import Footer from '../components/Footer'
-import Testimonials from '../components/Testimonials'
+// import Testimonials from '../components/Testimonials'
 import AddIcon from '@mui/icons-material/Add';
 
 
@@ -22,7 +22,7 @@ const Landing = () => {
   ]
   return (
     <div className='bg-[#F9FAFB] h-full w-full'>
-      <Navbar />
+      <Navbar loggedIn={false} />
       <div className='flex flex-col gap-12'>
         <div className='flex flex-col justify-center items-center h-full gap-3'>
           <h1 className='text-[#172E59] font-normal leading-7 mt-5 '>Learn a new skill, launch a project, land your dream career.</h1>
@@ -88,7 +88,7 @@ const Landing = () => {
         <div className='bg-[#172E59] w-full flex flex-col items-center p-10 gap-10'>
           <div className='w-1/2 flex flex-col gap-5 items-center'>
             <span className='text-white text-3xl text-center font-bold'>At your fingertips: a dedicated career coach.</span>
-            <span className='text-white text-md font-semibold'>Want to ace your next job interview ? Successfully build a startup? Itching to learn high-demand skills? Our coaches are here to help you navigate your career journey, from finding your next job to planning your career path.</span>
+            <span className='text-white text-md font-semibold text-center'>Want to ace your next job interview ? Successfully build a startup? Itching to learn high-demand skills? Our coaches are here to help you navigate your career journey, from finding your next job to planning your career path.</span>
           </div>
           <div className='flex gap-3 justify-center '>
             <div className='flex flex-col w-[400px] flex-wrap gap-5 items-center'>
@@ -108,11 +108,7 @@ const Landing = () => {
             </div>
           </div>
         </div>
-
-        
-            <Testimonials />
-        <Footer/>
-
+        {/* <Testimonials /> */}
         <div className='flex flex-col gap-5 px-20'>
           <h1 className='text-4xl text-[#172E59] font-bold flex justify-center'>Frequently Asked Questions</h1>
           {data.map((value, i) => (

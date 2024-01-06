@@ -195,7 +195,7 @@ const Signup = () => {
           </div>
           <div className="text-sm">
             Looking to join us as a mentor?{" "}
-            <span className="text-[#118577] underline font-medium cursor-pointer">
+            <span onClick={()=>navigate('/mentor')} className="text-[#118577] underline font-medium cursor-pointer">
               Apply now
             </span>
           </div>
