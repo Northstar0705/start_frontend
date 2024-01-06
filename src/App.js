@@ -4,7 +4,10 @@ import Signup from './pages/Signup.jsx';
 import Login from './pages/Login.jsx';
 import Apply from './pages/Mentor/Apply.jsx';
 import Mentor from './pages/Mentor/Mentor.jsx';
+
 import Home from './pages/Home.jsx';
+import Settings from './pages/Settings.jsx';
+
 
 function App() {
   return (
@@ -15,7 +18,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path='/mentor/apply' element={<Apply />} />
         <Route path="/mentor" element={<Mentor />} />
+
         <Route path="/mentee/home" element={<Home/>} />
+        <Route path='/settings' element={<Settings />} />
+
       </Routes>
     </div>
   );
