@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo1.svg'
+import logo1 from '../assets/logo.svg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router';
 import { Avatar } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-const Navbar = ({ path, loggedIn }) => {
+const Navbar = ({ path, loggedIn ,path1 }) => {
   const navigate = useNavigate();
   const [opendrop, setOpendrop] = useState(false);
   return (
     <div>
       {!loggedIn && <div className='flex justify-between py-4 px-20 shadow-sm'>
         <div className='container w-max flex'>
-          <img src={logo} alt="logo" style={{ width: '44px', height: '44px' }} />
+          <img src={logo1} alt="logo" style={{ width: '44px', height: '44px' }} />
         </div>
         <div className='flex items-center gap-10 '>
           <div className='flex gap-1 items-center cursor-pointer'>
@@ -28,7 +29,9 @@ const Navbar = ({ path, loggedIn }) => {
           {path !== 'mentor' && <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'>
             <span className='text-[#057A55] font-semibold font-sans' onClick={() => { navigate("/signup") }}>Getting Started</span>
           </div>}
-          <h1 className='text-[#363F54] font-bold cursor-pointer' onClick={() => { navigate("/login") }}>Login</h1>
+          {path1 !== 'browse' ? <h1 className='text-[#363F54] font-bold cursor-pointer' onClick={() => { navigate("/login") }}>Login</h1> 
+          : <h1 className='text-[#363F54] font-bold cursor-pointer' onClick={() => { navigate("/login") }}>Logout</h1>}
+          
         </div>
       </div>}
       {loggedIn &&
@@ -38,10 +41,10 @@ const Navbar = ({ path, loggedIn }) => {
               <img src={logo} alt="logo" style={{ width: '30px', height: '30px' }} />
             </div>
             <div className='flex gap-5 text-white font-semibold text-base'>
-              <span className='cursor-pointer'>Mentors</span>
-              <span className='cursor-pointer'>Applications</span>
-              <span className='cursor-pointer'>Inquiries</span>
-              <span className='cursor-pointer'>Wishlist</span>
+              <span className='cursor-pointer' onClick={()=>{navigate('/mentee/home')}}>Mentors</span>
+              <span className='cursor-pointer' onClick={()=>{navigate('/mentee/application')}}>Applications</span>
+              <span className='cursor-pointer' onClick={()=>{navigate('/mentee/inquiries')}}>Inquiries</span>
+              <span className='cursor-pointer' onClick={()=>{navigate('/mentee/wishlist')}}>Wishlist</span>
               <span className='cursor-pointer'>Settings</span>
             </div>
           </div>
