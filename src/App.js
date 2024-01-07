@@ -9,7 +9,7 @@ import Applications from './pages/Applications.jsx';
 import Inquiries from './pages/Inquiries.jsx';
 import Wishlist from './pages/Wishlist.jsx';
 import Browse from './pages/Browse.jsx';
-
+import Settings from './pages/Settings.jsx';
 function App() {
   return (
     <div className="App">
@@ -24,6 +24,7 @@ function App() {
         <Route path="/mentee/inquiries" element={<Inquiries/>} />
         <Route path="/mentee/wishlist" element={<Wishlist/>} />
         <Route path="/mentor/browse" element={<Browse/>} />
+        <Route path='/settings' element={<Settings />} />
       </Routes>
     </div>
   );
