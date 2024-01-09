@@ -24,7 +24,6 @@ function App() {
         {/* mentor */}
         <Route path='/mentor/apply' element={<Apply />} />
         <Route path="/mentor" element={<Mentor />} />
-        <Route path="/mentor/browse" element={<Browse/>} />
         {/* admin  */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -35,6 +34,7 @@ function App() {
         <Route path="/mentee/application" element={<Applications/>} />
         <Route path="/mentee/inquiries" element={<Inquiries/>} />
         <Route path="/mentee/wishlist" element={<Wishlist/>} />
+        <Route path="/mentor/browse" element={<Browse/>} />
         <Route path='/settings' element={<Settings />} />
       </Routes>
     </div>
