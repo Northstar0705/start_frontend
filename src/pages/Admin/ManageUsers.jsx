@@ -12,7 +12,7 @@ const ManageUsers = () => {
     const handleChange = (event, newAlignment) => {
         if (newAlignment !== null) {
             setAlignment(newAlignment);
-            console.log(rows,mentee,mentor)
+            console.log(rows, mentee, mentor)
             if (newAlignment === 'mentees') {
                 setRows(mentee)
             }
@@ -23,21 +23,21 @@ const ManageUsers = () => {
     };
 
     const [mentee, setMentee] = useState([
-        { id: 1, firstName: 'Snow', lastName: 'Jon', email: 'snowjon@gmail.com', registeredOn: '14th july 2024', status: 'verified' },
-        { id: 2, firstName: 'Lannister', lastName: 'Cersei', email: 'lannister@gmail.com', registeredOn: '14th july 2024', status: 'verified' },
-        { id: 3, firstName: 'Lannister', lastName: 'Jaime', email: 'jamie@gmail.com', registeredOn: '14th july 2024', status: 'inactive' },
-        { id: 4, firstName: 'Stark', lastName: 'Arya', email: 'stark@gmail.com', registeredOn: '14th july 2024', status: 'verified' },
-        { id: 5, firstName: 'Targaryen', lastName: 'Daenerys', email: 'childe@gmail.com', registeredOn: '14th july 2024', status: 'pending' },
-        { id: 6, firstName: 'Melisandre', lastName: 'Sony', email: 'sony2@gmail.com', registeredOn: '14th july 2024', status: 'inactive' },
+        { id: 1, firstName: 'Snow', lastName: 'Jon', email: 'snowjon@gmail.com', status: 'verified' },
+        { id: 2, firstName: 'Lannister', lastName: 'Cersei', email: 'lannister@gmail.com', status: 'verified' },
+        { id: 3, firstName: 'Lannister', lastName: 'Jaime', email: 'jamie@gmail.com', status: 'inactive' },
+        { id: 4, firstName: 'Stark', lastName: 'Arya', email: 'stark@gmail.com', status: 'verified' },
+        { id: 5, firstName: 'Targaryen', lastName: 'Daenerys', email: 'childe@gmail.com', status: 'pending' },
+        { id: 6, firstName: 'Melisandre', lastName: 'Sony', email: 'sony2@gmail.com', status: 'inactive' },
     ])
     const [rows, setRows] = useState(mentee)
     const [mentor, setMentor] = useState([
-        { id: 1, firstName: 'Snow', lastName: 'Jon', email: 'snowjon@gmail.com', registeredOn: '14th july 2024', status: 'active' },
-        { id: 2, firstName: 'Lannister', lastName: 'Cersei', email: 'lannister@gmail.com', registeredOn: '14th july 2024', status: 'active' },
-        { id: 3, firstName: 'Lannister', lastName: 'Jaime', email: 'jamie@gmail.com', registeredOn: '14th july 2024', status: 'inactive' },
-        { id: 4, firstName: 'Stark', lastName: 'Arya', email: 'stark@gmail.com', registeredOn: '14th july 2024', status: 'active' },
-        { id: 5, firstName: 'Targaryen', lastName: 'Daenerys', email: 'childe@gmail.com', registeredOn: '14th july 2024', status: 'pending' },
-        { id: 6, firstName: 'Melisandre', lastName: 'Sony', email: 'sony2@gmail.com', registeredOn: '14th july 2024', status: 'inactive' },
+        { id: 1, firstName: 'Snow', lastName: 'Jon', email: 'snowjon@gmail.com', status: 'active' },
+        { id: 2, firstName: 'Lannister', lastName: 'Cersei', email: 'lannister@gmail.com', status: 'active' },
+        { id: 3, firstName: 'Lannister', lastName: 'Jaime', email: 'jamie@gmail.com', status: 'inactive' },
+        { id: 4, firstName: 'Stark', lastName: 'Arya', email: 'stark@gmail.com', status: 'active' },
+        { id: 5, firstName: 'Targaryen', lastName: 'Daenerys', email: 'childe@gmail.com', status: 'pending' },
+        { id: 6, firstName: 'Melisandre', lastName: 'Sony', email: 'sony2@gmail.com', status: 'inactive' },
     ])
 
     const columns = [
@@ -46,12 +46,12 @@ const ManageUsers = () => {
         { field: 'lastName', headerName: 'Last name', flex: 1 },
         { field: 'email', headerName: 'Email', flex: 1 },
         {
-            field: 'action', headerName: 'Action', width: 150, renderCell: ({ id }) => {
+            field: 'action', headerName: 'Action', width: 150, renderCell: ({ row:{id} }) => {
                 return (
                     <div className='flex gap-2'>
                         <button className='bg-[#118577] text-white rounded-md px-2 py-1'>View</button>
                         <button onClick={() => {
-                            if(alignment==='mentees'){
+                            if (alignment === 'mentees') {
                                 const newMentee = mentee.filter((value) => {
                                     return value.id !== id
                                 })
@@ -59,7 +59,7 @@ const ManageUsers = () => {
                                 setRows(newMentee)
                                 console.log(mentee)
                             }
-                            else{
+                            else {
                                 const newMentor = mentor.filter((value) => {
                                     return value.id !== id
                                 })
