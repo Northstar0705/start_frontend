@@ -9,6 +9,10 @@ import Applications from './pages/Applications.jsx';
 import Inquiries from './pages/Inquiries.jsx';
 import Wishlist from './pages/Wishlist.jsx';
 import Browse from './pages/Browse.jsx';
+import AdminLogin from './pages/Admin/AdminLogin.jsx';
+import AdminDashboard from './pages/Admin/AdminDashboard.jsx';
+import ManageUsers from './pages/Admin/ManageUsers.jsx';
+import MentorApllications from './pages/Admin/MentorApllications.jsx';
 import Settings from './pages/Settings.jsx';
 function App() {
   return (
@@ -17,13 +21,20 @@ function App() {
         <Route exact path='/' element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        {/* mentor */}
         <Route path='/mentor/apply' element={<Apply />} />
         <Route path="/mentor" element={<Mentor />} />
+        <Route path="/mentor/browse" element={<Browse/>} />
+        {/* admin  */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<ManageUsers />} />
+        <Route path="/admin/applications" element={<MentorApllications />} />
+        {/* mentee  */}
         <Route path="/mentee/home" element={<Home/>} />
         <Route path="/mentee/application" element={<Applications/>} />
         <Route path="/mentee/inquiries" element={<Inquiries/>} />
         <Route path="/mentee/wishlist" element={<Wishlist/>} />
-        <Route path="/mentor/browse" element={<Browse/>} />
         <Route path='/settings' element={<Settings />} />
       </Routes>
     </div>
