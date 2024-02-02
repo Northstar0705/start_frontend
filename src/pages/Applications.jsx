@@ -6,7 +6,7 @@ const Applications = () => {
     return (
         <div>
             <div className='bg-[#172E59] '>
-                <Navbar loggedIn={true} className='shadow-md' />
+                <Navbar loggedIn={true} path={'application'} />
                 <div className='bg-[#21A391] flex justify-center px-2 py-3 gap-1'>
                     <span className='text-white font-semibold text-base'>👀 Want to double the chance of success for your applications?</span>
                     <span className='text-white font-bold underline text-base cursor-pointer'>Complete your profile →</span>
