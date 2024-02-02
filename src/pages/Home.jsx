@@ -31,10 +31,10 @@ const Home = () => {
     { id: 5, question: 'How many mentors can I reach out to?', answer: 'We impose a light limit on the amount of mentors you can reach out to in a given day and week for spam and security reasons. However there\'s no limit on the amount of mentors you can subscribe to.' },
   ]
   return (
-    <div>
-      <div className='bg-[#172E59] '>
-        <Navbar loggedIn={true} className='shadow-md' />
-        <div className='flex flex-col justify-center items-center h-[45vh] gap-5'>
+    <div className='flex flex-col w-full '>
+      <div className='bg-[#172E59] w-full flex flex-col'>
+        <Navbar loggedIn={true} path={"home"} />
+        <div className='flex flex-col justify-center w-full items-center h-[45vh] gap-5'>
           <span className='text-white font-bold text-4xl'>Welcome, Ayush!</span>
           <span className='text-white font-normal text-lg text-center'>Start Connecting with mentors and get ready to take your career to<br /> the next level!</span>
           <Button variant="contained" sx={{ background: "#ffffff", color: "#374151", textTransform: "capitalize", ":hover": { background: "#ffffff" } }}>Browse Mentor</Button>

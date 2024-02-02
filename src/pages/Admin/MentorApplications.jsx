@@ -3,8 +3,10 @@ import AdminNavbar from './AdminNavbar'
 import AdminSidebar from './AdminSidebar'
 import { DataGrid } from '@mui/x-data-grid';
 import { Tooltip } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-const MentorApllications = () => {
+const MentorApplications = () => {
+    const navigate = useNavigate()
     const [rows, setRows] = useState([
         { id: 1, firstName: 'Snow', lastName: 'Jon', email: 'snowjon@gmail.com', status: 'pending' },
         { id: 2, firstName: 'Lannister', lastName: 'Cersei', email: 'lannister@gmail.com', status: 'pending' },
@@ -19,10 +21,10 @@ const MentorApllications = () => {
         { field: 'lastName', headerName: 'Last name', width:130},
         { field: 'email', headerName: 'Email', flex: 1 },
         {
-            field: 'action', headerName: 'Action', flex:1, renderCell: ({ row:{email} }) => {
+            field: 'action', headerName: 'Action', flex:1, renderCell: ({ row:{email,id} }) => {
                 return (
                     <div className='flex gap-2'>
-                        <button className='bg-[#118577] text-white rounded-md px-2 py-1'>View</button>
+                        <button onClick={()=>navigate(`/admin/applications/${id}`)} className='bg-[#118577] text-white rounded-md px-2 py-1'>View</button>
                         <button className='bg-[#118577] text-white rounded-md px-2 py-1' onClick={()=>{
                             const ind = rows.indexOf(rows.find((value)=>value.email===email))
                             console.log(email)
@@ -73,4 +75,4 @@ const MentorApllications = () => {
     )
 }
 
-export default MentorApllications
+export default MentorApplications

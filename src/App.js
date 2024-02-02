@@ -12,8 +12,9 @@ import Browse from './pages/Browse.jsx';
 import AdminLogin from './pages/Admin/AdminLogin.jsx';
 import AdminDashboard from './pages/Admin/AdminDashboard.jsx';
 import ManageUsers from './pages/Admin/ManageUsers.jsx';
-import MentorApllications from './pages/Admin/MentorApllications.jsx';
+import MentorApplications from './pages/Admin/MentorApplications.jsx';
 import Settings from './pages/Settings.jsx';
+import ViewApplication from './pages/Admin/ViewApplication.jsx';
 function App() {
   return (
     <div className="App">
@@ -28,7 +29,8 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/users" element={<ManageUsers />} />
-        <Route path="/admin/applications" element={<MentorApllications />} />
+        <Route path="/admin/applications" element={<MentorApplications />} />
+        <Route path="/admin/applications/:id" element={<ViewApplication />} />
         {/* mentee  */}
         <Route path="/mentee/home" element={<Home/>} />
         <Route path="/mentee/application" element={<Applications/>} />
