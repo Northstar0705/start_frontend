@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo1.svg'
+import logo1 from '../assets/logo.svg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useNavigate } from 'react-router';
 import { Avatar } from '@mui/material';
@@ -10,9 +11,9 @@ const Navbar = ({ path, loggedIn }) => {
   const [opendrop, setOpendrop] = useState(false);
   return (
     <div>
-      {!loggedIn && <div className='flex justify-between py-4 px-20 shadow-sm'>
-        <div className='container w-max flex'>
-          <img src={logo} alt="logo" style={{ width: '44px', height: '44px' }} />
+      {path === 'browse' && <div className='flex justify-between py-4 px-20 shadow-sm'>
+        <div className='container w-max flex  '>
+          <img src={logo1} alt="logo" style={{ width: '36px', height: '36px' }} />
         </div>
         <div className='flex items-center gap-10 '>
           <div className='flex gap-1 items-center cursor-pointer'>
@@ -22,27 +23,43 @@ const Navbar = ({ path, loggedIn }) => {
           {path !== 'mentor' &&
             <div className='flex gap-1 text-[#363F54] items-center cursor-pointer font-bold' onClick={() => { navigate('/mentor') }}>Become a mentor</div>
           }
-          {path !== 'mentor' ? <h1 className='text-[#363F54] font-bold cursor-pointer'>Book a session</h1> : <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'>
-            <span className='text-[#057A55] font-bold font-sans' onClick={() => { }}>Browse all Mentors</span>
+          {!loggedIn && <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'>
+            <span className='text-[#057A55] font-semibold font-sans' onClick={() => { navigate("/signup") }}>Getting Started</span>
           </div>}
+          {!loggedIn? <h1 className='text-[#363F54] font-bold cursor-pointer' onClick={() => { navigate("/login") }}>Login</h1>
+            : <h1 className='text-[#363F54] font-bold cursor-pointer' onClick={() => { navigate("/login") }}>Logout</h1>}
+        </div>
+      </div>}
+      {(!loggedIn && path!=='browse') && <div className='flex justify-between py-4 px-20 shadow-sm'>
+        <div className='container w-max flex  '>
+          <img src={logo1} alt="logo" style={{ width: '36px', height: '36px' }} />
+        </div>
+        <div className='flex items-center gap-10 '>
+          <div className='flex gap-1 items-center cursor-pointer'>
+            <h1 className='text-[#363F54] font-bold'>Find a mentor</h1>
+            <ArrowDropDownIcon sx={{ color: '#00D1B2' }} />
+          </div>
+          {path !== 'mentor' &&
+            <div className='flex gap-1 text-[#363F54] items-center cursor-pointer font-bold' onClick={() => { navigate('/mentor') }}>Become a mentor</div>
+          }
           {path !== 'mentor' && <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'>
             <span className='text-[#057A55] font-semibold font-sans' onClick={() => { navigate("/signup") }}>Getting Started</span>
           </div>}
           <h1 className='text-[#363F54] font-bold cursor-pointer' onClick={() => { navigate("/login") }}>Login</h1>
         </div>
       </div>}
-      {loggedIn &&
-        <div className='px-20 py-4 flex justify-between items-center shadow-md'>
+      {(loggedIn && path !=='browse') &&
+        <div className='px-20 py-3 flex justify-between items-center shadow-md'>
           <div className='flex items-center gap-5'>
             <div className='bg-[#21A391] p-1 rounded-full'>
               <img src={logo} alt="logo" style={{ width: '30px', height: '30px' }} />
             </div>
             <div className='flex gap-5 text-white font-semibold text-base'>
-              <span className='cursor-pointer'>Mentors</span>
-              <span className='cursor-pointer'>Applications</span>
-              <span className='cursor-pointer'>Inquiries</span>
-              <span className='cursor-pointer'>Wishlist</span>
-              <span className='cursor-pointer'>Settings</span>
+              <span className={`cursor-pointer rounded-md px-2 py-1.5 ${path === 'home' ? "bg-[#224f9c]" : ""}`} onClick={() => { navigate('/mentee/home') }}>Mentors</span>
+              <span className={`cursor-pointer rounded-md px-2 py-1.5 ${path === 'application' ? "bg-[#224f9c]" : ""}`} onClick={() => { navigate('/mentee/application') }}>Applications</span>
+              <span className={`cursor-pointer rounded-md px-2 py-1.5 ${path === 'inquiries' ? "bg-[#224f9c]" : ""}`} onClick={() => { navigate('/mentee/inquiries') }}>Inquiries</span>
+              <span className={`cursor-pointer rounded-md px-2 py-1.5 ${path === 'wishlist' ? "bg-[#224f9c]" : ""}`} onClick={() => { navigate('/mentee/wishlist') }}>Wishlist</span>
+              <span className={`cursor-pointer rounded-md px-2 py-1.5 ${path === 'settings' ? "bg-[#224f9c]" : ""}`}>Settings</span>
             </div>
           </div>
           <div className='flex gap-5 items-center'>
@@ -61,10 +78,7 @@ const Navbar = ({ path, loggedIn }) => {
                 </div>
               }
             </div>
-
-
           </div>
-
         </div>
       }
     </div>
