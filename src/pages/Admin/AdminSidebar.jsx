@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const AdminSidebar = ({path}) => {
   const navigate = useNavigate()
   return (
-    <div className='bg-[#172e59] w-[300px] h-screen flex flex-col gap-2'>
+    <div className='bg-[#172e59] w-[300px] h-[92vh] flex flex-col gap-2'>
       <div onClick={()=>navigate('/admin/dashboard')} className={`${path!=='dashboard'?"bg-none":"bg-[#118577]"} text-white flex w-full px-5 py-2 cursor-pointer`}>
         <DashboardIcon />
         <div className='ml-2'>Dashboard</div>
