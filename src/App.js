@@ -15,6 +15,7 @@ import ManageUsers from './pages/Admin/ManageUsers.jsx';
 import MentorApplications from './pages/Admin/MentorApplications.jsx';
 import Settings from './pages/Settings.jsx';
 import ViewApplication from './pages/Admin/ViewApplication.jsx';
+import Calender from './pages/Admin/Calender.jsx';
 function App() {
   return (
     <div className="App">
@@ -31,12 +32,13 @@ function App() {
         <Route path="/admin/users" element={<ManageUsers />} />
         <Route path="/admin/applications" element={<MentorApplications />} />
         <Route path="/admin/applications/:id" element={<ViewApplication />} />
+        <Route path="/admin/calender" element={<Calender />} />
         {/* mentee  */}
-        <Route path="/mentee/home" element={<Home/>} />
-        <Route path="/mentee/application" element={<Applications/>} />
-        <Route path="/mentee/inquiries" element={<Inquiries/>} />
-        <Route path="/mentee/wishlist" element={<Wishlist/>} />
-        <Route path="/mentor/browse" element={<Browse/>} />
+        <Route path="/mentee/home" element={<Home />} />
+        <Route path="/mentee/application" element={<Applications />} />
+        <Route path="/mentee/inquiries" element={<Inquiries />} />
+        <Route path="/mentee/wishlist" element={<Wishlist />} />
+        <Route path="/mentor/browse" element={<Browse />} />
         <Route path='/settings' element={<Settings />} />
       </Routes>
     </div>
