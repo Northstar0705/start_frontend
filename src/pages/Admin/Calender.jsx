@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AdminSidebar from "./AdminSidebar";
-import AdminNavbar from "./AdminNavbar";
+import Navbar2 from '../../components/Navbar2'
 import axios from "axios";
 import FullCalender from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 const events = [
-  { title: "event 1", date: "2024-16-02" },
-  { title: "event 2", date: "2021-10-02" },
+  { title: "event 1", start: new Date(2024,2,28,14,30,0), end: new Date(2024,2,28,16,30,0) },
+  { title: "event 2", start: new Date(2024,2,29,14,30,0), end: new Date(2024,2,29,16,30,0) },
 ];
 
 const Calender = () => {
@@ -17,23 +17,22 @@ const Calender = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <AdminNavbar />
+      <Navbar2 path="admin" />
       <div className="flex w-full h-[92vh] overflow-scroll">
         <div className="">
           <AdminSidebar path={"calender"} />
         </div>
-        <div className=" w-full h-[92vh] overflow-scroll m-2 ">
+        <div className=" w-full p-2 h-[92vh] overflow-scroll">
           <FullCalender
-            plugins={[dayGridPlugin,interactionPlugin]}
-            initialView="dayGridMonth"
-            weekends={true}
+            plugins={[timeGridPlugin,interactionPlugin]}
+            initialView="timeGridWeek"
+            weekends={false}
             events={events}
-            // eventContent={renderEvent}
             eventClick={handleClick}
             headerToolbar={{
-              start: "prev,next today",
+              start: "prev,next",
               center: "title",
-              right: "dayGridMonth",
+              right: "timeGridWeek,timeGridDay",
             }}
             height={"90vh"}
             dateClick={function (arg) {

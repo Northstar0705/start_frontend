@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import AdminNavbar from './AdminNavbar'
+import Navbar2 from '../../components/Navbar2'
 import AdminSidebar from './AdminSidebar'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios'
@@ -18,7 +18,7 @@ const ViewApplication = () => {
     }, [id])
     return (
         <div className='flex flex-col w-full'>
-            <AdminNavbar />
+            <Navbar2 path="mentor"/>
             <div className='flex w-full h-[92vh] overflow-scroll'>
                 <div className=''>
                     <AdminSidebar path={'applications'} />
