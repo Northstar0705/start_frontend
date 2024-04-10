@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import AdminNavbar from './AdminNavbar'
+import Navbar2 from '../../components/Navbar2'
 import AdminSidebar from './AdminSidebar'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const MentorApplications = () => {
+const AdminApplications = () => {
     const navigate = useNavigate()
     const [rejected, setRejected] = useState(false)
     const [rejectedInd, setRejectedInd] = useState(0)
@@ -49,7 +49,7 @@ const MentorApplications = () => {
     ]
     return (
         <div className='flex flex-col w-full'>
-            <AdminNavbar />
+            <Navbar2 path="mentor" />
             {rejected &&
                 <div className='bg-gray-400/40 absolute z-20 flex w-screen h-screen items-center justify-center '>
                     <div className='bg-white rounded-md shadow-md w-[45%] flex flex-col px-5 py-2 gap-3'>
@@ -92,4 +92,4 @@ const MentorApplications = () => {
     )
 }
 
-export default MentorApplications
+export default AdminApplications

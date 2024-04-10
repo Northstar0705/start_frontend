@@ -34,13 +34,15 @@ const Settings = () => {
   };
   return (
     <div>
-      <Navbar />
+      <div className="bg-[#172E59]">
+        <Navbar loggedIn={true} path={"settings"} />
+      </div>
       {/* page nav section */}
-      <div className="flex justify-around py-4 px-20 shadow-sm">
+      <div className="flex py-4 px-20 shadow-sm">
         <div className="container w-max flex"></div>
         <div className=" flex items-center gap-20 ">
           {/* profile subscription  billing balance and password  */}
-          <div className="flex gap-1 items-center cursor-pointer font-medium">
+          <div className="flex gap-1 px-5 items-center text-[#21A391] font-medium border-b-2 border-[#21A391] cursor-pointer">
             <h3>Profile</h3>
           </div>
           <div className="flex gap-1 items-center cursor-pointer font-medium">
@@ -59,10 +61,10 @@ const Settings = () => {
         <h1 className="text-[1.25rem] font-[700]">Your Profile</h1>
         {/* profile name */}
 
-        <div className="mx-10 my-2   w-full h-full border rounded-md border-gray-400">
-          <div className=" flex flex-col items-start p-5 font-semibold ">
+        <div className="my-2 w-full h-full border rounded-md py-2 border-gray-400">
+          <div className=" flex flex-col items-start px-5 font-semibold ">
             <h2 className="">Personal Information</h2>
-            <div className="flex flex-col w-full mx-2 my-5  bg-[#f2f7ff] p-4  border rounded-md border-none">
+            <div className="flex flex-col w-full mx-2 mt-5 bg-[#f2f7ff] p-4  border rounded-md border-none">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 flex bg-[#488bf0] rounded-full p-1 items-center  justify-center">
                   <div className="text-white  text-sm">i</div>
@@ -76,23 +78,23 @@ const Settings = () => {
                   Adding your photo and social media profiles helps mentors feel
                   confident that you’re a real person (e.g. not a bot).
                 </div>
-                <div className="flex items-center gap-4 font-normal text-[#2e71b6]">
+                {/* <div className="flex items-center gap-4 font-normal text-[#2e71b6]">
                   <div className="w-1 h-1 bg-[#2e71b6] rounded-full"></div>
                   Your profile is only visible to mentors that you send
                   applications to. It is not indexed on search engines like
                   Google.
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
           {/* photo */}
-          <div className="flex flex-col items-start p-5 font-semibold gap-4">
+          <div className="flex flex-col items-start px-5 py-1 font-semibold gap-4">
             <div className="">Photo</div>
             <div className="flex items-center gap-4">
               <img
                 className="w-10 h-10 rounded-full"
                 src="https://avatars.githubusercontent.com/u/74105371?v=4"
-                alt="image"
+                alt=""
               />
               <div className="border rounded-md p-1">
                 <button className="text-[#2e71b6]">Upload photo</button>
@@ -138,7 +140,7 @@ const Settings = () => {
                     setForm({ ...form, email: e.target.value });
                   }}
                 />
-                <div className="text-sm text-gray-400">Only visible to you</div>
+                {/* <div className="text-sm text-gray-400">Only visible to you</div> */}
               </div>
               <div className="flex flex-col items-start gap-1">
                 <div className="">Location</div>
