@@ -1,66 +1,89 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Navbar from "../components/Navbar";
+import axios from "axios"
+import Loader from "../components/Loader";
 
 const Settings = () => {
-  const [active, isActive] = useState();
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState()
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    location: "",
-    jobTitle: "",
-    linkedIn: "",
-    twitter: "",
-    goals: "",
-  });
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log(form);
-    setForm({
-      firstName: "",
-      lastName: "",
-      email: "",
-      location: "",
-      jobTitle: "",
-      linkedIn: "",
-      twitter: "",
-      goals: "",
-    });
-    if (form.firstName === "" || form.lastName === "" || form.email === "") {
-      alert("Please fill all the required fields");
-    } else {
-      alert("Your profile has been updated");
+    currPass: "",
+    newPass: "",
+    confirmPass: "",
+  })
+  const [page, setPage] = useState(1);
+  const imageRef = useRef()
+  const handleKeyDowm = (e) => {
+    if (e.key === ',' || e.key === 'Enter') {
+      console.log(e.target.value)
+      setUser({ ...user, interests: [...user?.interests, e.target.value] })
+      e.target.value = ''
+    }
+  }
+
+  const handleClick = async () => {
+    try {
+      await axios.patch('/api/mentee/update', user)
+      alert("Profile Updated Successfully")
+    } catch (err) {
+      console.log(err)
+      alert("Profile Update Failed")
     }
   };
+
+  const handleChange = () =>{
+    //image to url
+    const file = imageRef.current.files[0]
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      setUser({...user,image:reader.result})
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const handlePassChange = async () => {
+    if (form.currPass === "" || form.newPass === "" || form.confirmPass === "") {
+      alert("Please fill all the required fields");
+    }
+    else if (form.newPass !== form.confirmPass) {
+      alert("Passwords do not match")
+    }
+    else {
+      try {
+        await axios.patch('/api/mentee/changePassword', { oldPassword: form.currPass, newPassword: form.newPass })
+        alert("Password Changed Successfully")
+      } catch (err) {
+        console.log(err)
+        alert("Invalid Password")
+      }
+    }
+  }
+
   return (
     <div>
       <div className="bg-[#172E59]">
-        <Navbar loggedIn={true} path={"settings"} />
+        <Navbar loggedIn={true} path={"settings"} user={user} setUser={setUser} setLoading={setLoading} />
       </div>
-      {/* page nav section */}
-      <div className="flex py-4 px-20 shadow-sm">
+      {loading && <Loader />}
+      {!loading && <div className="flex py-4 px-20 shadow-sm">
         <div className="container w-max flex"></div>
         <div className=" flex items-center gap-20 ">
-          {/* profile subscription  billing balance and password  */}
-          <div className="flex gap-1 px-5 items-center text-[#21A391] font-medium border-b-2 border-[#21A391] cursor-pointer">
+          <div onClick={() => setPage(1)} className={`flex px-2 gap-1 items-center ${page === 1 && "text-[#21A391] border-b-2 border-[#21A391]"} font-medium  cursor-pointer`}>
             <h3>Profile</h3>
           </div>
-          <div className="flex gap-1 items-center cursor-pointer font-medium">
+          <div onClick={() => setPage(2)} className={`flex px-2 gap-1 items-center ${page === 2 && "text-[#21A391] border-b-2 border-[#21A391]"} font-medium  cursor-pointer`}>
             <h3>Subscription Billing</h3>
           </div>
-          <div className="flex gap-1 items-center cursor-pointer font-medium">
+          <div onClick={() => setPage(3)} className={`flex px-2 gap-1 items-center ${page === 3 && "text-[#21A391] border-b-2 border-[#21A391]"} font-medium  cursor-pointer`}>
             <h3>Balance</h3>
           </div>
-          <div className="flex gap-1 items-center cursor-pointer font-medium">
+          <div onClick={() => setPage(4)} className={`flex px-2 gap-1 items-center ${page === 4 && "text-[#21A391] border-b-2 border-[#21A391]"} font-medium  cursor-pointer`}>
             <h3>Password</h3>
           </div>
         </div>
-      </div>
-      {/* profile */}
-      <div className="flex flex-col items-center justify-center  my-5  px-20  ">
+      </div>}
+      {page === 1 && <div className="flex flex-col items-center justify-center  my-5  px-20  ">
         <h1 className="text-[1.25rem] font-[700]">Your Profile</h1>
-        {/* profile name */}
-
         <div className="my-2 w-full h-full border rounded-md py-2 border-gray-400">
           <div className=" flex flex-col items-start px-5 font-semibold ">
             <h2 className="">Personal Information</h2>
@@ -73,17 +96,10 @@ const Settings = () => {
               </div>
               <div className="flex flex-col ">
                 <div className="flex  items-center  gap-4 font-normal text-[#2e71b6]">
-                  {/* blue circle using tailwind css */}
                   <div className="w-1 h-1 bg-[#2e71b6] rounded-full"></div>
                   Adding your photo and social media profiles helps mentors feel
                   confident that you’re a real person (e.g. not a bot).
                 </div>
-                {/* <div className="flex items-center gap-4 font-normal text-[#2e71b6]">
-                  <div className="w-1 h-1 bg-[#2e71b6] rounded-full"></div>
-                  Your profile is only visible to mentors that you send
-                  applications to. It is not indexed on search engines like
-                  Google.
-                </div> */}
               </div>
             </div>
           </div>
@@ -92,37 +108,40 @@ const Settings = () => {
             <div className="">Photo</div>
             <div className="flex items-center gap-4">
               <img
-                className="w-10 h-10 rounded-full"
-                src="https://avatars.githubusercontent.com/u/74105371?v=4"
+                className="w-10 h-10 rounded-full object-cover"
+                src={user?.image ? user?.image : "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"}
                 alt=""
               />
               <div className="border rounded-md p-1">
-                <button className="text-[#2e71b6]">Upload photo</button>
+                <input onChange={handleChange} accept="image/*" type="file" className="hidden" ref={imageRef} />
+                <button onClick={()=>imageRef.current.click()} className="text-[#2e71b6]">Upload photo</button>
               </div>
             </div>
             {/* first name and last name */}
             <div className="flex  items-start gap-4">
               <div className="flex flex-col items-start gap-1">
-                <div className="">First Name*</div>
+                <div className="">First Name</div>
                 <input
                   className="border rounded-md p-2 w-96 outline-blue-600"
                   type="text"
+                  disabled
                   placeholder="First Name"
-                  value={form.firstName}
+                  value={user?.firstName}
                   onChange={(e) => {
-                    setForm({ ...form, firstName: e.target.value });
+                    setUser({ ...user, firstName: e.target.value });
                   }}
                 />
               </div>
               <div className="flex flex-col items-start gap-1">
-                <div className="">Last Name*</div>
+                <div className="">Last Name</div>
                 <input
                   className="border rounded-md p-2 w-96 outline-blue-600"
                   type="text"
+                  disabled
                   placeholder="Last Name"
-                  value={form.lastName}
+                  value={user?.lastName}
                   onChange={(e) => {
-                    setForm({ ...form, lastName: e.target.value });
+                    setUser({ ...user, lastName: e.target.value });
                   }}
                 />
               </div>
@@ -130,17 +149,17 @@ const Settings = () => {
             {/* email  and location*/}
             <div className="flex  items-start gap-4">
               <div className="flex flex-col items-start gap-1">
-                <div className="">Email*</div>
+                <div className="">Email</div>
                 <input
                   className="border rounded-md p-2 w-96 outline-blue-600"
                   type="text"
+                  disabled
                   placeholder="Email"
-                  value={form.email}
+                  value={user?.email}
                   onChange={(e) => {
-                    setForm({ ...form, email: e.target.value });
+                    setUser({ ...user, email: e.target.value });
                   }}
                 />
-                {/* <div className="text-sm text-gray-400">Only visible to you</div> */}
               </div>
               <div className="flex flex-col items-start gap-1">
                 <div className="">Location</div>
@@ -148,29 +167,33 @@ const Settings = () => {
                   className="border rounded-md p-2 w-96 outline-blue-600"
                   type="text"
                   placeholder="Location"
-                  value={form.location}
+                  value={user?.location}
                   onChange={(e) => {
-                    setForm({ ...form, location: e.target.value });
+                    setUser({ ...user, location: e.target.value });
                   }}
                 />
               </div>
             </div>
-            {/* job title */}
-            <div className="flex  items-start ">
-              <div className="flex flex-col items-start gap-1">
-                <div className="">Job Title</div>
-                <input
-                  className="border rounded-md p-2 w-[49rem] outline-blue-600"
-                  type="text"
-                  placeholder="Job Title"
-                  value={form.jobTitle}
-                  onChange={(e) => {
-                    setForm({ ...form, jobTitle: e.target.value });
-                  }}
-                />
+            <div className='flex flex-col gap-1 w-full'>
+              <div className='font-medium'>Interests</div>
+              <div className='flex flex-wrap border w-[49rem] gap-5 h-max p-3 rounded-md'>
+                {user?.interests.map((skill, index) => (
+                  <div className='bg-[#DEF7EC] rounded-lg flex gap-2 items-center justify-center font-medium text-[#118577] px-2 text-sm' key={index}>
+                    {skill}
+                    <div className='text-gray-400 cursor-pointer' onClick={() => {
+                      user?.interests.splice(index, 1)
+                      setUser({ ...user })
+                    }}>x</div>
+                  </div>
+                ))}
+                <input onChange={(e) => {
+                  console.log(e.target.value)
+                  if (e.target.value.endsWith(',')) {
+                    e.target.value = e.target.value.slice(0, -1)
+                  }
+                }} onKeyDown={handleKeyDowm} type="text" className='w-[200px] outline-none text-sm' placeholder='Enter your interests...' />
               </div>
             </div>
-            {/* linkedin and twitter */}
             <div className="flex  items-start gap-4">
               <div className="flex flex-col items-start gap-1">
                 <div className="">LinkedIn</div>
@@ -178,9 +201,9 @@ const Settings = () => {
                   className="border rounded-md p-2 w-96 outline-blue-600"
                   type="text"
                   placeholder="https://www.linkedin.com/"
-                  value={form.linkedIn}
+                  value={user?.linkedIn}
                   onChange={(e) => {
-                    setForm({ ...form, linkedIn: e.target.value });
+                    setUser({ ...user, linkedIn: e.target.value });
                   }}
                 />
               </div>
@@ -190,14 +213,13 @@ const Settings = () => {
                   className="border rounded-md p-2 w-96 outline-blue-600"
                   type="text"
                   placeholder="https://twitter.com/"
-                  value={form.twitter}
+                  value={user?.twitter}
                   onChange={(e) => {
-                    setForm({ ...form, twitter: e.target.value });
+                    setUser({ ...user, twitter: e.target.value });
                   }}
                 />
               </div>
             </div>
-            {/* goals */}
             <div className="flex  items-start gap-4 ">
               <div className="flex flex-col items-start gap-1">
                 <div className="">Goals</div>
@@ -205,9 +227,9 @@ const Settings = () => {
                   className="border rounded-md p-2 w-[49rem] h-60 outline-blue-600"
                   type="text"
                   placeholder=""
-                  value={form.goals}
+                  value={user?.goals}
                   onChange={(e) => {
-                    setForm({ ...form, goals: e.target.value });
+                    setUser({ ...user, goals: e.target.value });
                   }}
                 />
                 <div className="text-sm text-gray-400">
@@ -225,84 +247,7 @@ const Settings = () => {
               </button>
             </div>
           </div>
-          {/*  */}
         </div>
-        {/* time zone and availabilty */}
-        <div className="mx-10 my-2   w-full h-full border rounded-md border-gray-400">
-          <div className=" flex flex-col items-start p-5 font-semibold ">
-            <h2 className="">Time Zone and Availability</h2>
-            <div className="flex flex-col w-full mx-2 my-5  bg-[#f2f7ff] p-4  border rounded-md border-none">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 flex bg-[#488bf0] rounded-full p-1 items-center  justify-center">
-                  <div className="text-white  text-sm">i</div>
-                </div>
-                <div className="text-[#2e71b6]">Tips</div>
-              </div>
-              <div className="flex flex-col ">
-                <div className="flex  items-center  gap-4 font-normal text-[#2e71b6]">
-                  {/* blue circle using tailwind css */}
-                  <div className="w-1 h-1 bg-[#2e71b6] rounded-full"></div>
-                  Adding your photo and social media profiles helps mentors feel
-                  confident that you’re a real person (e.g. not a bot).
-                </div>
-                <div className="flex items-center gap-4 font-normal text-[#2e71b6]">
-                  <div className="w-1 h-1 bg-[#2e71b6] rounded-full"></div>
-                  Your profile is only visible to mentors that you send
-                  applications to. It is not indexed on search engines like
-                  Google.
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* time zone */}
-          <div className="flex flex-col items-start p-5 font-semibold gap-4">
-            <div className="">Time Zone</div>
-            <div className="flex items-center gap-4">
-              <div className="border rounded-md p-1">
-                <button className="text-[#2e71b6]">Select Time Zone</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* email preferences */}
-        <div className="mx-10 my-2   w-full h-full border rounded-md border-gray-400">
-          <div className=" flex flex-col items-start p-5 font-semibold ">
-            <h2 className="">Email Preferences</h2>
-          </div>
-          <div className="flex flex-col items-start px-5 font-normal">
-            Configure your email notifications so you can focus on what’s really
-            important.
-          </div>
-          {/* checkboxes */}
-          <div className="flex flex-col items-start p-5 font-normal ">
-            <div className="flex items-center gap-4">
-              <input type="checkbox" />
-              <div className="font-medium">
-                Important updates about your account, mentorship, messages and
-                billing
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <input type="checkbox" />
-              <div className="font-medium">
-                Regular reminders of your ongoing mentorships
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <input type="checkbox" />
-              <div className="font-medium">
-                Notifications of mentors on your wishlist
-              </div>
-            </div>
-            <div className="border rounded-md p-1 gap-y-2">
-              <button className="">
-                Save Changes
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* choose your account */}
         <div className="mx-10 my-2   w-full h-full border rounded-md border-gray-400">
           <div className=" flex flex-col items-start p-5 font-semibold ">
             <h2>Choose Your Account</h2>
@@ -318,7 +263,25 @@ const Settings = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div>}
+      {page === 4 && <div className="flex flex-col gap-5 h-full items-center justify-center">
+        <h2 className="text-3xl font-semibold">Change Password</h2>
+        <div className="flex flex-col gap-5 w-[400px] rounded-md bg-gray-200 shadow-md p-5">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="currentPassword" className="font-semibold">Current Password</label>
+            <input onChange={(e) => { setForm({ ...form, currPass: e.target.value }) }} type="password" className="border rounded-md p-2 outline-none" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="newPassword" className="font-semibold">New Password</label>
+            <input onChange={(e) => { setForm({ ...form, newPass: e.target.value }) }} type="password" className="border rounded-md p-2 outline-none" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label  htmlFor="confirmPassword" className="font-semibold">Confirm Password</label>
+            <input onChange={(e) => { setForm({ ...form, confirmPass: e.target.value }) }} type="password" className="border rounded-md p-2 outline-none" />
+          </div>
+          <button onClick={handlePassChange} type="button" className="bg-[#488bf0] text-white rounded-md p-2 w-[200px]">Change Password</button>
+        </div>
+      </div>}
     </div>
   );
 };

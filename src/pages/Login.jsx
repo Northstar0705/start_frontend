@@ -34,8 +34,8 @@ const Login = () => {
     if (formData.email !== "" && formData.password !== "") {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/auth/login",
-          formData
+          "/api/auth/login",
+          formData,{withCredentials:true}
         );
         console.log(response);
         if (response.status === 200) {
