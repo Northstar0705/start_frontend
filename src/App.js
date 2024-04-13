@@ -23,6 +23,7 @@ import MentorSettings from './pages/Mentor/MentorSettings.jsx';
 import AdminApplications from './pages/Admin/AdminApplications.jsx';
 import AddEvent from './pages/Mentor/AddEvent.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
+import Webinar from './pages/Webinar.jsx';
 function App() {
   return (
     <div className="App">
@@ -54,6 +55,7 @@ function App() {
         <Route path="/mentee/wishlist" element={<Wishlist />} />
         <Route path="/mentor/browse" element={<Browse />} />
         <Route path='/mentee/settings' element={<Settings />} />
+        <Route path="/mentee/webinar" element={<Webinar />} />
       </Routes>
     </div>
   );

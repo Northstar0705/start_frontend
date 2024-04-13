@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { Button } from '@mui/material'
+import Loader from '../components/Loader'
 
 const Applications = () => {
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
     return (
         <div>
             <div className='bg-[#172E59] '>
-                <Navbar loggedIn={true} path={'application'} />
-                <div className='bg-[#21A391] flex justify-center px-2 py-3 gap-1'>
-                    <span className='text-white font-semibold text-base'>👀 Want to double the chance of success for your applications?</span>
-                    <span className='text-white font-bold underline text-base cursor-pointer'>Complete your profile →</span>
-                </div>
+                <Navbar loggedIn={true} path={'application'} user={user} setUser={setUser} setLoading={setLoading} />
             </div>
-            <div className='flex flex-col px-28 py-14 gap-5'>
+            {loading && <Loader />}
+            {!loading && <div className='flex flex-col px-28 py-14 gap-5'>
                 <h1 className='text-[20px] font-semibold text-[#111827]'>Applications</h1>
                 <div className='border-[#4A4A4A] border-[1px] flex flex-col p-5 rounded-md gap-3 w-full justify-center items-center'>
                     <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +22,7 @@ const Applications = () => {
                     <span className='text-gray-500 text-sm font-medium'>Once you've applied to a mentor, they will show up here! </span>
                     <Button variant='contained'  sx={{ background: "#1C3D7A", color: "#ffffff", textTransform: "capitalize",padding:"8px 18px", ":hover": { background: "#1C3D7A" },fontWeight:"500",fontSize:"16px", }}>Find mentors</Button>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

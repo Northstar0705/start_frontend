@@ -8,25 +8,25 @@ import {useNavigate} from 'react-router-dom'
 const MentorSidebar = ({path}) => {
   const navigate = useNavigate()
   return (
-    <div className="w-[300px] h-full flex flex-col bg-[#118577] text-white justify-between">
+    <div className="w-[300px] h-full flex flex-col bg-[#172e59] text-white justify-between">
       <div className='flex flex-col gap-2'>
-        <div onClick={()=>navigate("/mentor/dashboard")} className={`flex gap-2 p-2.5 ${path==="dashboard" && "bg-[#172e59]"} cursor-pointer`}>
+        <div onClick={()=>navigate("/mentor/dashboard")} className={`flex gap-2 p-2.5 ${path==="dashboard" && "bg-[#118577]"} cursor-pointer`}>
           <DashboardIcon />
           <span>Dashboard</span>
         </div>
-        <div onClick={()=>navigate("/mentor/applications")} className={`flex gap-2 p-2.5 ${path==="application" && "bg-[#172e59]"} cursor-pointer`}>
+        <div onClick={()=>navigate("/mentor/applications")} className={`flex gap-2 p-2.5 ${path==="application" && "bg-[#118577]"} cursor-pointer`}>
           <AssignmentIndIcon />
           <div>Applications</div>
         </div>
-        <div onClick={()=>navigate("/mentor/inquiries")} className={`flex gap-2 p-2.5 ${path==="inquiries" && "bg-[#172e59]"} cursor-pointer`}>
+        <div onClick={()=>navigate("/mentor/inquiries")} className={`flex gap-2 p-2.5 ${path==="inquiries" && "bg-[#118577]"} cursor-pointer`}>
           <AssistantIcon />
           <div>Inquiries</div>
         </div>
-        <div onClick={()=>navigate("/mentor/addEvent")} className={`flex gap-2 p-2.5 ${path==="addEvent" && "bg-[#172e59]"} cursor-pointer`}>
+        <div onClick={()=>navigate("/mentor/addEvent")} className={`flex gap-2 p-2.5 ${path==="addEvent" && "bg-[#118577]"} cursor-pointer`}>
           <EventIcon />
           <div>Add Events</div>
         </div>
-        <div onClick={()=>navigate("/mentor/settings")} className={`flex gap-2 p-2.5 ${path==="settings" && "bg-[#172e59]"} cursor-pointer`}>
+        <div onClick={()=>navigate("/mentor/settings")} className={`flex gap-2 p-2.5 ${path==="settings" && "bg-[#118577]"} cursor-pointer`}>
           <SettingsIcon />
           <div>Settings</div>
         </div>
@@ -36,7 +36,7 @@ const MentorSidebar = ({path}) => {
           <span className='font-normal'>Signed in as</span>
           <span className='font-bold'>ayushraj0607@gmail.com</span>
         </div>
-        <span className='font-medium cursor-pointer'>Sign Out</span>
+        <span className='text-rose-500 cursor-pointer'>Sign Out</span>
       </div>
     </div>
   )
