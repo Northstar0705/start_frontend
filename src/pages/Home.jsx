@@ -10,7 +10,7 @@ import Loader from '../components/Loader';
 
 const Home = () => {
   const [user, setUser] = useState()
-  const [recc, setRecc] = useState()
+  const [recc, setRecc] = useState("")
   const [loading, setLoading] = useState(true)
 
   const sessions = [
@@ -45,17 +45,17 @@ const Home = () => {
     <div className='flex flex-col w-full '>
       <div className='bg-[#172E59] w-full flex flex-col'>
         <Navbar loggedIn={true} path={"home"} user={user} setUser={setUser} setLoading={setLoading} />
-        {!loading && <div className='flex flex-col justify-center w-full items-center h-[45vh] gap-5'>
+        {!(loading || recc === "") && <div className='flex flex-col justify-center w-full items-center h-[45vh] gap-5'>
           <span className='text-white font-bold text-4xl'>Welcome, {user?.firstName}!</span>
           <span className='text-white font-normal text-lg text-center'>Start Connecting with mentors and get ready to take your career to<br /> the next level!</span>
           <Button variant="contained" sx={{ background: "#ffffff", color: "#374151", textTransform: "capitalize", ":hover": { background: "#ffffff" } }}>Browse Mentor</Button>
         </div>}
-        {recc?.length === 0 && <div className='bg-[#21A391] flex justify-center px-2 py-3 gap-1'>
+        {(!(loading || recc === "") && recc.length === 0)&& <div className='bg-[#21A391] flex justify-center px-2 py-3 gap-1'>
           <span className='text-white font-semibold text-base'>👀 Want to get mentor reccomendations? Tell us about your interests in your profile section.</span>
         </div>}
       </div>
-      {loading && <Loader />}
-      {!loading && <div className='flex flex-col px-20 py-4 gap-5'>
+      {(loading || recc === "") && <Loader />}
+      {!(loading || recc === "") && <div className='flex flex-col px-20 py-4 gap-5'>
         {recc?.length>0 && <div className='flex flex-col gap-3 relative w-[100%]'>
           <h2 className='text-2xl font-semibold text-[#111827]'>Recommended for you</h2>
           <ChevronLeftIcon sx={{ color: "#4A4A4A", width: "30px", height: "30px", cursor: "pointer", position: "absolute", left: "-35px", top: "120px" }} />
