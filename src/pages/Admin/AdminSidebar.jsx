@@ -6,7 +6,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EventIcon from '@mui/icons-material/Event';
 import { useNavigate } from "react-router-dom";
 
-const AdminSidebar = ({ path }) => {
+const AdminSidebar = ({ path, user }) => {
   const navigate = useNavigate();
   return (
     <div className='bg-[#172e59] w-[300px] h-[92vh] flex flex-col justify-between'>
@@ -40,7 +40,7 @@ const AdminSidebar = ({ path }) => {
           <div className="ml-2">Calendar</div>
         </div>
         <div
-          onClick={() => navigate("/admin/addEvent")}
+          onClick={() => navigate("/admin/event")}
           className={`${path !== "event" ? "bg-none" : "bg-[#118577]"
             } text-white flex w-full px-5 py-2 cursor-pointer`}
         >
@@ -51,7 +51,7 @@ const AdminSidebar = ({ path }) => {
       <div className='px-5 py-1 text-white border-t border-gray-500 flex flex-col gap-3'>
         <div className='flex flex-col'>
           <span className='font-normal'>Signed in as</span>
-          <span className='font-bold'>ayushraj0607@gmail.com</span>
+          <span className='font-bold'>{user?.email}</span>
         </div>
         <span className='text-rose-500 font-normal cursor-pointer'>Sign Out</span>
       </div>

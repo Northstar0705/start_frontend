@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import logo from '../../assets/logo.svg'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const AdminLogin = () => {
   const navigate = useNavigate()
@@ -8,6 +9,16 @@ const AdminLogin = () => {
     email: '',
     password: ''
   })
+
+  const handleClick = async() =>{
+    try{
+      axios.post('/api/auth/login',{...formData,isAdmin:true,isMentee:true},{withCredentials:true})
+      navigate('/admin/dashboard')
+    }catch(err){
+      console.log(err)
+      alert(err.response.data.message)
+    }
+  }
 
   return (
     <div className='w-full flex h-full'>
@@ -35,7 +46,7 @@ const AdminLogin = () => {
               setFormData({ ...formData, password: e.target.value })
             }} value={formData.password} className='border mt-0.5 border-gray-400 focus:border-2 focus:border-blue-500 px-2 rounded-md outline-none w-full py-1.5' />
           </div>
-          <div className='w-full cursor-pointer hover:bg-[#0f766a] bg-[#118577] text-center py-1.5 text-white rounded-md '>Log in</div>
+          <div onClick={handleClick} className='w-full cursor-pointer hover:bg-[#0f766a] bg-[#118577] text-center py-1.5 text-white rounded-md '>Log in</div>
           <div className='underline text-[#118577] font-medium cursor-pointer'>Forgot password?</div>
         </div>
       </div>

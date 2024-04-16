@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import Navbar2 from '../../components/Navbar2'
 import AdminSidebar from './AdminSidebar'
-import { Button } from '@mui/material'
+import Loader from '../../components/Loader'
 
 const Event = () => {
-    const [option, setOption] = useState()
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
     return (
         <div className='flex flex-col w-full'>
-            <Navbar2 path="admin" />
+            <Navbar2 path="admin" user={user} setUser={setUser} setLoading={setLoading} />
             <div className='flex w-full'>
                 <div>
-                    <AdminSidebar path={'event'} />
+                    <AdminSidebar path={'event'} user={user} />
                 </div>
-                
+                {loading && <div className='flex items-center w-full justify-center'>
+                    <Loader />
+                </div>}
             </div>
         </div>
 

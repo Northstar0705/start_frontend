@@ -5,8 +5,20 @@ import AssistantIcon from '@mui/icons-material/Assistant';
 import EventIcon from '@mui/icons-material/Event';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {useNavigate} from 'react-router-dom'
-const MentorSidebar = ({path}) => {
+import axios from 'axios'
+
+const MentorSidebar = ({path,user}) => {
   const navigate = useNavigate()
+
+  const handleClick = async()=>{
+    try{
+      await axios.get('/api/auth/logout')
+      navigate('/login')
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   return (
     <div className="w-[300px] h-full flex flex-col bg-[#172e59] text-white justify-between">
       <div className='flex flex-col gap-2'>
@@ -34,9 +46,9 @@ const MentorSidebar = ({path}) => {
       <div className='px-5 py-1 text-white border-t border-white flex flex-col gap-3'>
         <div className='flex flex-col'>
           <span className='font-normal'>Signed in as</span>
-          <span className='font-bold'>ayushraj0607@gmail.com</span>
+          <span className='font-bold'>{user?.email}</span>
         </div>
-        <span className='text-rose-500 cursor-pointer'>Sign Out</span>
+        <span onClick={handleClick} className='text-rose-500 cursor-pointer'>Sign Out</span>
       </div>
     </div>
   )
