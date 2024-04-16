@@ -16,6 +16,7 @@ import MentorApplications from './pages/Admin/MentorApplications.jsx';
 import Settings from './pages/Settings.jsx';
 import ViewApplication from './pages/Admin/ViewApplication.jsx';
 import Calender from './pages/Admin/Calender.jsx';
+import Messenger from './pages/chatPage/Messenger.jsx';
 function App() {
   return (
     <div className="App">
@@ -39,6 +40,7 @@ function App() {
         <Route path="/mentee/inquiries" element={<Inquiries />} />
         <Route path="/mentee/wishlist" element={<Wishlist />} />
         <Route path="/mentor/browse" element={<Browse />} />
+        <Route path="mentor/chat" element={<Messenger own={true} />} />
         <Route path='/settings' element={<Settings />} />
       </Routes>
     </div>
