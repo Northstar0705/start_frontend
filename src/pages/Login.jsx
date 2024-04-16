@@ -35,11 +35,14 @@ const Login = () => {
       try {
         const response = await axios.post(
           "/api/auth/login",
-          formData,{withCredentials:true}
+          {...formData, isMentee, isAdmin:false},{withCredentials:true}
         );
         console.log(response);
-        if (response.status === 200) {
+        if (isMentee) {
           navigate("/mentee/home");
+        }
+        else{
+          navigate("/mentor/dashboard");
         }
       } catch (err) {
         console.log(err);

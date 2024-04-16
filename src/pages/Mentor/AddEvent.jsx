@@ -2,17 +2,23 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import MentorSidebar from './MentorSidebar'
 import { Button } from '@mui/material'
+import Loader from '../../components/Loader'
 
 const AddEvent = () => {
     const [option, setOption] = useState()
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
     return (
         <div className='flex flex-col w-full h-screen'>
-            <Navbar loggedIn={true} path={"mentor"} />
-            <div className='flex h-full'>
+            <Navbar loggedIn={true} path={"mentor"} user={user} setUser={setUser} setLoading={setLoading} />
+            <div className='flex h-full w-full'>
                 <div>
-                    <MentorSidebar path={"addEvent"} />
+                    <MentorSidebar path={"addEvent"} user={user} />
                 </div>
-                <div className='w-full p-2 flex justify-center'>
+                {loading && <div className='flex items-center w-full justify-center'>
+                    <Loader />
+                </div>}
+                {!loading && <div className='w-full p-2 flex justify-center'>
                     {!option && <div className='flex flex-col gap-10 justify-center items-center h-1/2'>
                         <span className='text-4xl font-semibold'>Choose Your Event</span>
                         <div className='flex gap-5'>
@@ -44,7 +50,7 @@ const AddEvent = () => {
                                 <button className="bg-blue-600 text-white rounded-md p-2">Request Event</button>}
                         </div>
                     </form>}
-                </div>
+                </div>}
             </div>
         </div>
     )

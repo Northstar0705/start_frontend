@@ -5,12 +5,15 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loader from '../../components/Loader';
 
 const AdminApplications = () => {
     const navigate = useNavigate()
     const [rejected, setRejected] = useState(false)
     const [rejectedInd, setRejectedInd] = useState(0)
-    const [rows, setRows] = useState([])
+    const [rows, setRows] = useState("null")
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         const getApplications = async () => {
             const { data } = await axios.get('http://localhost:5000/api/admin/applications', { withCredentials: true })
@@ -49,7 +52,7 @@ const AdminApplications = () => {
     ]
     return (
         <div className='flex flex-col w-full'>
-            <Navbar2 path="mentor" />
+            <Navbar2 path="mentor" user={user} setUser={setUser} setLoading={setLoading} />
             {rejected &&
                 <div className='bg-gray-400/40 absolute z-20 flex w-screen h-screen items-center justify-center '>
                     <div className='bg-white rounded-md shadow-md w-[45%] flex flex-col px-5 py-2 gap-3'>
@@ -58,13 +61,13 @@ const AdminApplications = () => {
                         <TextField label='Reason' variant='outlined' />
                         <div className='w-full flex justify-end'>
                             <Button variant='text' color='primary' onClick={() => setRejected(false)}>Cancel</Button>
-                            <Button variant='text' color='primary' onClick={async() => {
-                                try{
-                                    await axios.delete(`http://localhost:5000/api/admin/applications/${rows[rejectedInd]._id}`, {withCredentials: true})
+                            <Button variant='text' color='primary' onClick={async () => {
+                                try {
+                                    await axios.delete(`http://localhost:5000/api/admin/applications/${rows[rejectedInd]._id}`, { withCredentials: true })
                                     const newRows = rows.filter((value, ind) => ind !== rejectedInd)
                                     setRejected(false)
                                     setRows(newRows)
-                                }catch(err){
+                                } catch (err) {
                                     console.log(err)
                                 }
                             }}>Submit</Button>
@@ -74,9 +77,12 @@ const AdminApplications = () => {
             }
             <div className='flex w-full'>
                 <div className=''>
-                    <AdminSidebar path={'applications'} />
+                    <AdminSidebar path={'applications'} user={user} />
                 </div>
-                <div className='h-[75vh] w-full mt-2'>
+                {(loading || rows==="null") && <div className='flex items-center w-full justify-center'>
+                    <Loader />
+                </div>}
+                {!(loading || rows==="null") && <div className='h-[75vh] w-full mt-2'>
                     <DataGrid getRowId={(row) => row._id} disableRowSelectionOnClick checkboxSelection rows={rows} sx={{
                         '& .MuiDataGrid-cell:focus': {
                             outline: 'none'
@@ -86,7 +92,7 @@ const AdminApplications = () => {
                             outline: "none"
                         }
                     }} columns={columns} />
-                </div>
+                </div>}
             </div>
         </div>
     )
