@@ -67,8 +67,8 @@ const Apply = () => {
     const handleSubmit = async () => {
         if (formData.whyMentor && formData.greatestAchievement) {
             try {
-                formData.profilePicture = "koibhilink.com"
-                const { data } = await axios.post('http://localhost:5000/api/auth/apply', formData)
+                // formData.profilePicture = "koibhilink.com"
+                const { data } = await axios.post('http://localhost:5000/api/mentor/apply', formData)
                 console.log(data)
                 setPage(p => p + 1)
             } catch (err) {

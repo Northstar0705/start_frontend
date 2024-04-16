@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import AdminNavbar from './AdminNavbar'
+import Navbar2 from '../../components/Navbar2'
 import AdminSidebar from './AdminSidebar'
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -108,7 +108,7 @@ const ManageUsers = () => {
 
     return (
         <div className='flex flex-col w-full'>
-            <AdminNavbar />
+            <Navbar2 path="admin" />
             <div className='flex w-full'>
                 <div className=''>
                     <AdminSidebar path={'users'} />
