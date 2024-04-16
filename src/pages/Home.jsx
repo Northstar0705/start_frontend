@@ -1,19 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { Button } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import profile from '../assets/mentor.webp'
+import axios from "axios"
+import { useNavigate } from 'react-router';
+import Loader from '../components/Loader';
 
 const Home = () => {
-  const data = [
-    { id: 0, name: 'Alex', price: '₹180/mo', designation: 'Software Engineer at Microsoft', description: 'Alex is one of the best and most experience mentor.', tags: ['Javascript', 'React', 'Nodejs', 'Express', 'MongoDB', 'Mongoose'] },
-    { id: 1, name: 'Bonny', price: '₹360/mo', designation: 'Data Engineer at Microsoft', description: 'Bonny is one of the best and most experience mentor.', tags: ['Javascript', 'React', 'Machine Learning', 'Express', 'MongoDB', 'Mongoose'] },
-    { id: 2, name: 'Tony', price: '₹360/mo', designation: 'Data Engineer at Microsoft', description: 'Bonny is one of the best and most experience mentor.', tags: ['Javascript', 'React', 'Machine Learning', 'Express', 'MongoDB', 'Mongoose'] },
-    { id: 3, name: 'Alexandra', price: '₹360/mo', designation: 'Data Engineer at Microsoft', description: 'Bonny is one of the best and most experience mentor.', tags: ['Javascript', 'React', 'Machine Learning', 'Express', 'MongoDB', 'Mongoose'] },
-    { id: 4, name: 'Sumit Pahwa', price: '₹360/mo', designation: 'Data Engineer at Microsoft', description: 'Bonny is one of the best and most experience mentor.', tags: ['Javascript', 'React', 'Machine Learning', 'Express', 'MongoDB', 'Mongoose'] },
-    { id: 5, name: 'Bonny', price: '₹360/mo', designation: 'Data Engineer at Microsoft', description: 'Bonny is one of the best and most experience mentor.', tags: ['Javascript', 'React', 'Machine Learning', 'Express', 'MongoDB', 'Mongoose'] },
-  ]
+  const [user, setUser] = useState()
+  const [recc, setRecc] = useState("")
+  const [loading, setLoading] = useState(true)
 
   const sessions = [
     { id: 0, name: 'Intro Call', description: 'If you are looking for a mentor, and you are just not sure about how this all works - this should be for you.', duration: 'Approx. 30 minutes' },
@@ -30,50 +28,58 @@ const Home = () => {
     { id: 4, question: 'Can I withdraw my applications?', answer: 'If you\'ve changed your mind about a mentor, you can withdraw your application. The withdrawal option is available three days after your application, to allow the mentor to react.' },
     { id: 5, question: 'How many mentors can I reach out to?', answer: 'We impose a light limit on the amount of mentors you can reach out to in a given day and week for spam and security reasons. However there\'s no limit on the amount of mentors you can subscribe to.' },
   ]
+
+  useEffect(() => {
+    const getReccomendations = async () => {
+      try {
+        const { data } = await axios.get("/api/mentee/reccomendations")
+        setRecc(data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getReccomendations()
+  }, [])
+
   return (
     <div className='flex flex-col w-full '>
       <div className='bg-[#172E59] w-full flex flex-col'>
-        <Navbar loggedIn={true} path={"home"} />
-        <div className='flex flex-col justify-center w-full items-center h-[45vh] gap-5'>
-          <span className='text-white font-bold text-4xl'>Welcome, Ayush!</span>
+        <Navbar loggedIn={true} path={"home"} user={user} setUser={setUser} setLoading={setLoading} />
+        {!(loading || recc === "") && <div className='flex flex-col justify-center w-full items-center h-[45vh] gap-5'>
+          <span className='text-white font-bold text-4xl'>Welcome, {user?.firstName}!</span>
           <span className='text-white font-normal text-lg text-center'>Start Connecting with mentors and get ready to take your career to<br /> the next level!</span>
           <Button variant="contained" sx={{ background: "#ffffff", color: "#374151", textTransform: "capitalize", ":hover": { background: "#ffffff" } }}>Browse Mentor</Button>
-        </div>
-        <div className='bg-[#21A391] flex justify-center px-2 py-3 gap-1'>
-          <span className='text-white font-semibold text-base'>👀 Want to double the chance of success for your applications?</span>
-          <span className='text-white font-bold underline text-base cursor-pointer'>Add a profile page →</span>
-        </div>
+        </div>}
+        {(!(loading || recc === "") && recc.length === 0)&& <div className='bg-[#21A391] flex justify-center px-2 py-3 gap-1'>
+          <span className='text-white font-semibold text-base'>👀 Want to get mentor reccomendations? Tell us about your interests in your profile section.</span>
+        </div>}
       </div>
-      <div className='flex flex-col px-20 py-4 gap-5'>
-        <div className='flex flex-col gap-3 relative w-[100%]'>
+      {(loading || recc === "") && <Loader />}
+      {!(loading || recc === "") && <div className='flex flex-col px-20 py-4 gap-5'>
+        {recc?.length>0 && <div className='flex flex-col gap-3 relative w-[100%]'>
           <h2 className='text-2xl font-semibold text-[#111827]'>Recommended for you</h2>
           <ChevronLeftIcon sx={{ color: "#4A4A4A", width: "30px", height: "30px", cursor: "pointer", position: "absolute", left: "-35px", top: "120px" }} />
           <ChevronRightIcon sx={{ color: "#4A4A4A", width: "30px", height: "30px", cursor: "pointer", position: "absolute", right: "-35px", top: "120px" }} />
           <div className='flex gap-3 overflow-x-scroll'>
-            {data.map((values, i) => (
+            {recc?.map(({mentor,similarity }, i) => (
               <div className='border-[#4A4A4A] border-2 flex p-5 rounded-md gap-3 items-start min-w-[445px] justify-center'>
-                <img src={profile} alt="" style={{ width: "50px", height: "50px", borderRadius: "8px" }} />
+                <img src={mentor.profilePicture} alt="" style={{ width: "50px", height: "50px", borderRadius: "8px" }} />
                 <div className='flex flex-col'>
                   <div className='flex justify-between items-center'>
-                    <span className='text-[#172E59] font-bold text-[19.2px] truncate'>{values.name}</span>
-                    <span className='text-[#172E59] font-bold text-[19.2px]'>{values.price}</span>
+                    <span className='text-[#172E59] font-bold text-[19.2px] truncate'>{mentor.firstName + " " + mentor.lastName}</span>
+                    <span className='text-[#172E59] font-bold text-[19.2px]'>{mentor.price}</span>
                   </div>
-                  <span className='text-[#7A7A7A] font-semibold text-[17.6px]'>{values.designation}</span>
-                  <span className='text-base text-[#172E59] font-medium'>{values.description}</span>
+                  <span className='text-[#7A7A7A] font-semibold text-[17.6px]'>{mentor.jobTitle}</span>
+                  <span className='text-base text-[#172E59] font-medium'>{mentor.bio}</span>
                   <div className='flex gap-2 flex-wrap mt-1'>
-                    <span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> Javascript</span>
-                    <span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> Javascript</span>
-                    <span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> Javascript</span>
-                    <span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> Javascript</span>
-                    <span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> Javascript</span>
-                    <span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> Javascript</span>
+                    {mentor?.skills?.map((skill, i) => (<span className='bg-[#F3F4F6] text-[#374151] text-sm py-0.5 px-2 font-medium rounded-xl'> {skill}</span>))}
                   </div>
                 </div>
               </div>
             ))
             }
           </div>
-        </div>
+        </div>}
         <div className='flex flex-col gap-3'>
           <h1 className='text-2xl font-semibold text-[#111827]'>Featured Sessions</h1>
           <div className='flex gap-3'>
@@ -96,9 +102,9 @@ const Home = () => {
               </div>
             ))}
           </div>
-            <Button variant='contained' sx={{ background: "#1C3D7A", color: "#ffffff", textTransform: "capitalize",padding:"10px 28px", ":hover": { background: "#1C3D7A" },fontWeight:"500",fontSize:"16px", }}>Read More</Button>
+          <Button variant='contained' sx={{ background: "#1C3D7A", color: "#ffffff", textTransform: "capitalize", padding: "10px 28px", ":hover": { background: "#1C3D7A" }, fontWeight: "500", fontSize: "16px", }}>Read More</Button>
         </div>
-      </div>
+      </div>}
     </div>
 
   )
