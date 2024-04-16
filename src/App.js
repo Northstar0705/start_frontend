@@ -15,6 +15,9 @@ import ManageUsers from './pages/Admin/ManageUsers.jsx';
 import Settings from './pages/Settings.jsx';
 import ViewApplication from './pages/Admin/ViewApplication.jsx';
 import Calender from './pages/Admin/Calender.jsx';
+
+import Messenger from './pages/chatPage/Messenger.jsx';
+
 import Event from './pages/Admin/Event.jsx';
 import MentorDashboard from './pages/Mentor/MentorDashboard.jsx';
 import MentorApplication from './pages/Mentor/MentorApplication.jsx';
@@ -24,6 +27,7 @@ import AdminApplications from './pages/Admin/AdminApplications.jsx';
 import AddEvent from './pages/Mentor/AddEvent.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import Webinar from './pages/Webinar.jsx';
+
 function App() {
   return (
     <div className="App">
@@ -54,6 +58,8 @@ function App() {
         <Route path="/mentee/inquiries" element={<Inquiries />} />
         <Route path="/mentee/wishlist" element={<Wishlist />} />
         <Route path="/mentor/browse" element={<Browse />} />
+        <Route path="mentor/chat" element={<Messenger own={true} />} />
+        <Route path='/settings' element={<Settings />} />
         <Route path='/mentee/settings' element={<Settings />} />
         <Route path="/mentee/webinar" element={<Webinar />} />
       </Routes>
