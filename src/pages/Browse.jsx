@@ -4,9 +4,9 @@ import Navbar from '../components/Navbar'
 const Browse = () => {
   return (
     <div>
-        <Navbar loggedIn={false} path={'mentor'} path1={'browse'}/>
+        <Navbar loggedIn={false} path={'browse'}/>
         <div>
-            
+          hello
         </div>
     </div>
   )

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Alert, AlertTitle } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+
 const Login = () => {
   const navigate = useNavigate();
   const [isMentee, setIsMentee] = useState(true);
@@ -33,12 +34,15 @@ const Login = () => {
     if (formData.email !== "" && formData.password !== "") {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/auth/login",
-          formData
+          "/api/auth/login",
+          {...formData, isMentee, isAdmin:false},{withCredentials:true}
         );
         console.log(response);
-        if (response.status === 200) {
+        if (isMentee) {
           navigate("/mentee/home");
+        }
+        else{
+          navigate("/mentor/dashboard");
         }
       } catch (err) {
         console.log(err);
@@ -157,6 +161,7 @@ const Login = () => {
                 <div className="font-semibold cursor-pointer">
                   Log in with Google
                 </div>
+
               </div>
             </div>
           )}

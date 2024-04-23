@@ -46,12 +46,10 @@ const Signup = () => {
         const response = await axios.post(
           "http://localhost:5000/api/auth/register",
           formdata
-        );
+        ); 
         console.log(response.data);
         setMessage(response.data.message);
-        if (response.status === 200) {
-          alert("User created successfully");
-        }
+        navigate('/login')
       } catch (err) {
         console.log(err);
       }
