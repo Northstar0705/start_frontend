@@ -35,7 +35,7 @@ const Navbar = ({ path, loggedIn, user, setUser, setLoading }) => {
         }
       }
     }
-    if(initial && loggedIn){
+    if(initial && loggedIn && path !== 'browse'){
       getUser()
       setInitial(false)
     }
@@ -46,15 +46,12 @@ const Navbar = ({ path, loggedIn, user, setUser, setLoading }) => {
       {path === 'browse' && <div className='flex justify-between py-4 px-20 shadow-sm'>
         <div className='container w-max flex  '>
           <img src={logo1} alt="logo" style={{ width: '36px', height: '36px' }} />
+          <div className='text-2xl font-semibold text-[#172e59]'>North<span className='text-[#118577]'>Star</span></div>
         </div>
         <div className='flex items-center gap-10 '>
-          <div className='flex gap-1 items-center cursor-pointer'>
-            <h1 className='text-[#363F54] font-bold'>Find a mentor</h1>
-            <ArrowDropDownIcon sx={{ color: '#00D1B2' }} />
-          </div>
-          {path !== 'mentor' &&
-            <div className='flex gap-1 text-[#363F54] items-center cursor-pointer font-bold' onClick={() => { navigate('/mentor') }}>Become a mentor</div>
-          }
+          {loggedIn && <div className='flex gap-1 items-center cursor-pointer'>
+            <button onClick={()=>navigate("/mentee/home")} className='w-max p-1.5 bg-[#118577] text-white rounded-md'>Dashboard</button>
+          </div>}
           {!loggedIn && <div className='bg-[#DEF7EC] p-2 rounded-md cursor-pointer'>
             <span className='text-[#057A55] font-semibold font-sans' onClick={() => { navigate("/signup") }}>Getting Started</span>
           </div>}
