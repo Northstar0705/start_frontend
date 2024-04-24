@@ -101,7 +101,7 @@ const Navbar = ({ path, loggedIn, user, setUser, setLoading }) => {
           <div className='flex gap-5 items-center'>
             {path !== "mentor" && <span className='text-white text-base font-semibold '>Browse Mentors</span>}
             <div className='flex items-center relative cursor-pointer' onClick={() => { setOpendrop(!opendrop) }}>
-              <Avatar src={user?.profilePicture} sx={{ width: 40, height: 40, background:path==="mentor"?"#172e59":"" }}>{user?.firstName?.slice(0,1)}</Avatar>
+              <Avatar src={user?.image} sx={{ width: 40, height: 40, background:path==="mentor"?"#172e59":"" }}>{user?.firstName?.slice(0,1)}</Avatar>
               {path !== "mentor" && <>
                 <KeyboardArrowDownIcon sx={{ color: '#ffffff' }} />
                 {opendrop &&
