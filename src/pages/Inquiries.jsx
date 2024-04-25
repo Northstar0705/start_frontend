@@ -9,7 +9,7 @@ const Inquiries = () => {
   const [loading, setLoading] = useState(true);
   const message = true;
   return (
-    <div className=" h-screen">
+    <div className="h-screen">
       <div className="bg-[#172E59] ">
         <Navbar
           loggedIn={true}

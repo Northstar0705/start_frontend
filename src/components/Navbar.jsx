@@ -43,7 +43,7 @@ const Navbar = ({ path, loggedIn, user, setUser, setLoading }) => {
 
   return (
     <div>
-      {path === 'browse' && <div className='flex justify-between py-4 px-20 shadow-sm'>
+      {path === 'browse' && <div className='flex justify-between py-2 px-20 shadow-md bg-white/90'>
         <div className='container w-max flex  '>
           <img src={logo1} alt="logo" style={{ width: '36px', height: '36px' }} />
           <div className='text-2xl font-semibold text-[#172e59]'>North<span className='text-[#118577]'>Star</span></div>
@@ -78,7 +78,7 @@ const Navbar = ({ path, loggedIn, user, setUser, setLoading }) => {
         </div>
       </div>}
       {(loggedIn && path !== 'browse') &&
-        <div className={`${path === "mentor" ? "px-2" : "px-20"} py-1 flex justify-between items-center shadow-md`}>
+        <div className={`${path === "mentor" ? "px-2" : "px-20"} h-[8vh] flex justify-between items-center shadow-md`}>
           <div className='flex items-center gap-5'>
             {path === "mentor" ? <div className='flex items-center gap-2'>
               <img src={logo1} alt="logo" style={{ width: '30px', height: '30px' }} />
@@ -96,7 +96,7 @@ const Navbar = ({ path, loggedIn, user, setUser, setLoading }) => {
           </div>
           {path === "mentor" && <div className='text-2xl'>Welcome {user?.firstName}</div>}
           <div className='flex gap-5 items-center'>
-            {path !== "mentor" && <span className='text-white text-base font-semibold '>Browse Mentors</span>}
+            {path !== "mentor" && <span onClick={()=> navigate('/mentor/browse')} className='text-white text-base cursor-pointer font-semibold '>Browse Mentors</span>}
             <div className='flex items-center relative cursor-pointer' onClick={() => { setOpendrop(!opendrop) }}>
               <Avatar src={user?.image} sx={{ width: 40, height: 40, background:path==="mentor"?"#172e59":"" }}>{user?.firstName?.slice(0,1)}</Avatar>
               {path !== "mentor" && <>

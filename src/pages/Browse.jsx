@@ -104,7 +104,7 @@ const Browse = () => {
               </FormControl>
             </div>
             </div> */}
-            {filterSkills.length > 0 && <div onClick={() => setFilterSkills([])} className='cursor-pointer font-semibold'><HighlightOffIcon /> Reset Filters</div>}
+            {filterSkills.length > 0 && <div onClick={() => setFilterSkills("")} className='cursor-pointer font-semibold'><HighlightOffIcon /> Reset Filters</div>}
           </div>
           <div className='flex flex-col w-full gap-10 justify-center items-center mt-5'>
             {mentors.map((mentor, index) => (
