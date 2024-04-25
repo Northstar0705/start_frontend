@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 const AdminSidebar = ({ path, user }) => {
   const navigate = useNavigate();
+  const handleLogOut = () =>{
+    
+  }
   return (
     <div className='bg-[#172e59] w-[300px] h-[92vh] flex flex-col justify-between'>
       <div className="flex flex-col gap-2">
@@ -53,7 +56,7 @@ const AdminSidebar = ({ path, user }) => {
           <span className='font-normal'>Signed in as</span>
           <span className='font-bold'>{user?.email}</span>
         </div>
-        <span className='text-rose-500 font-normal cursor-pointer'>Sign Out</span>
+        <span onClick={handleLogOut} className='text-rose-500 font-normal cursor-pointer'>Sign Out</span>
       </div>
     </div>
   );

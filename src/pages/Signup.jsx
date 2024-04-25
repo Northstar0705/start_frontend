@@ -6,6 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Alert, AlertTitle } from "@mui/material";
+import VerifyUser from "../components/VerifyUser";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,19 +17,13 @@ const Signup = () => {
     password: "",
   });
   const [message, setMessage] = useState("");
-  const [warning, setWarning] = useState();
+  const [verify, setVerify] = useState(false)
 
   const navigate = useNavigate();
   const captchaRef = useRef(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = captchaRef.current.getValue();
-    captchaRef.current.reset();
-  };
   useEffect(() => {
     if (message !== "") {
-      //  what is happening?
       setTimeout(() => {
         setMessage("");
       }, 5000);
@@ -46,10 +41,10 @@ const Signup = () => {
         const response = await axios.post(
           "http://localhost:5000/api/auth/register",
           formdata
-        ); 
+        );
         console.log(response.data);
         setMessage(response.data.message);
-        navigate('/login')
+        setVerify(true)
       } catch (err) {
         console.log(err);
       }
@@ -75,7 +70,7 @@ const Signup = () => {
       </div>
       {/* right */}
       <div className="flex justify-center text-sm items-center my-12 w-2/3">
-        <div className="flex flex-col w-1/2 gap-5">
+        {!verify ? <div className="flex flex-col w-1/2 gap-5">
           <div className="font-bold text-3xl mb-2">Sign up as a Mentee</div>
           <div>
             <div className="text-gray-600 font-medium text-[15px]">
@@ -193,11 +188,13 @@ const Signup = () => {
           </div>
           <div className="text-sm">
             Looking to join us as a mentor?{" "}
-            <span onClick={()=>navigate('/mentor')} className="text-[#118577] underline font-medium cursor-pointer">
+            <span onClick={() => navigate('/mentor')} className="text-[#118577] underline font-medium cursor-pointer">
               Apply now
             </span>
           </div>
-        </div>
+        </div> : <div className="w-[70%]">
+          <VerifyUser />
+        </div>}
       </div>
     </div>
   );

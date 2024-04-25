@@ -27,8 +27,27 @@ import AdminApplications from './pages/Admin/AdminApplications.jsx';
 import AddEvent from './pages/Mentor/AddEvent.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import Webinar from './pages/Webinar.jsx';
+import { socket } from './socket.js';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [isConnected, setIsConnected] = useState(socket.connected);
+
+  useEffect(()=>{
+    socket.on('connect', () => {
+      setIsConnected(true);
+    });
+    socket.on('disconnect', () => {
+      setIsConnected(false);
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('disconnect');
+    }
+  },[])
+
+
   return (
     <div className="App">
       <Routes>
