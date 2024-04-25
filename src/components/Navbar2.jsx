@@ -18,7 +18,7 @@ const Navbar2 = ({user, setUser, setLoading}) => {
             }catch(err){
                 console.log(err)
                 if(err.response.data.errorMessage === "Please login first"){
-                    navigate('/login')
+                    navigate('/admin/login')
                 }
             }
         }
@@ -26,7 +26,7 @@ const Navbar2 = ({user, setUser, setLoading}) => {
     },[setUser,setLoading,navigate])
 
     return (
-        <div className='flex justify-between w-full shadow-lg p-2 py-0 h-[8vh]'>
+        <div className='flex justify-between w-full shadow-lg p-2 h-[8vh]'>
             {/* left */}
             <div className='flex gap-2 items-center'>
                 <img src={logo} alt="" width={'35px'} height={'35px'} />
@@ -41,7 +41,7 @@ const Navbar2 = ({user, setUser, setLoading}) => {
                 <div>
                     <div className='w-8 h-8 rounded-full flex relative items-center justify-center'>
                         <div>
-                            {user?.image && <img src={"https://t.ly/1B6fF"} alt="" className='w-8 h-8 rounded-full' />}
+                            {user?.image && <img src={user?.image} alt="" className='w-8 h-8 rounded-full' />}
                             {!user?.image && <div className='w-9 h-9 rounded-full bg-[#172e59] flex justify-center text-center items-center text-white text-xl cursor-pointer'>{user?.firstName[0]}</div>}
                         </div>
                     </div>
