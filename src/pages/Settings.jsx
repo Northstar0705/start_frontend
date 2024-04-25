@@ -82,7 +82,7 @@ const Settings = () => {
           </div>
         </div>
       </div>}
-      {page === 1 && <div className="flex flex-col items-center justify-center  my-5  px-20  ">
+      {(page === 1 && !loading) && <div className="flex flex-col items-center justify-center  my-5  px-20  ">
         <h1 className="text-[1.25rem] font-[700]">Your Profile</h1>
         <div className="my-2 w-full h-full border rounded-md py-2 border-gray-400">
           <div className=" flex flex-col items-start px-5 font-semibold ">
