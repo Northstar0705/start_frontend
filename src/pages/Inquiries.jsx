@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { Button } from "@mui/material";
 import Loader from "../components/Loader";
 import Messenger from "./chatPage/Messenger";
+import axios from "axios";
 
-const Inquiries = () => {
+const Inquiries = ({ socket }) => {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-  const message = true;
+  const [conversations, setConversations] = useState("null");
+
+  useEffect(() => {
+    if (!loading) socket.emit("get_conversations", { userId: user?._id, role: user?.role });
+    return () => {
+      socket.off("get_conversations");
+    };
+  }, [user?._id, user?.role, socket, loading]);
+
+  useEffect(() => {
+    socket.on("conversations", (data) => {
+      console.log(data);
+      setConversations(data);
+    });
+    return () => {
+      socket.off("conversations");
+    };
+  }, [socket, conversations]);
+
+
   return (
     <div className="h-screen">
       <div className="bg-[#172E59] ">
@@ -19,8 +39,8 @@ const Inquiries = () => {
           setLoading={setLoading}
         />
       </div>
-      {loading && <Loader />}
-      {!loading && !message && (
+      {loading && conversations === "null" && <Loader />}
+      {!loading && conversations.length === 0 && (
         <div className="flex flex-col px-28 py-14 gap-5">
           <h1 className="text-[20px] font-semibold text-[#111827]">
             Inquiries
@@ -46,7 +66,7 @@ const Inquiries = () => {
             <span className="text-gray-500 text-sm font-medium">
               Once you've message a mentor, they will show up here!{" "}
             </span>
-            <Button
+            <Button type="button"
               variant="contained"
               sx={{
                 background: "#1C3D7A",
@@ -63,9 +83,9 @@ const Inquiries = () => {
           </div>
         </div>
       )}
-      {message && !loading && (
+      {conversations.length > 0 && !loading && conversations !== "null" && (
         <div className="">
-          <Messenger />
+          <Messenger user={user} conversations={conversations} setConversations={setConversations} socket={socket} />
         </div>
       )}
     </div>

@@ -15,9 +15,7 @@ import ManageUsers from './pages/Admin/ManageUsers.jsx';
 import Settings from './pages/Settings.jsx';
 import ViewApplication from './pages/Admin/ViewApplication.jsx';
 import Calender from './pages/Admin/Calender.jsx';
-
 import Messenger from './pages/chatPage/Messenger.jsx';
-
 import Event from './pages/Admin/Event.jsx';
 import MentorDashboard from './pages/Mentor/MentorDashboard.jsx';
 import MentorApplication from './pages/Mentor/MentorApplication.jsx';
@@ -27,32 +25,24 @@ import AdminApplications from './pages/Admin/AdminApplications.jsx';
 import AddEvent from './pages/Mentor/AddEvent.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import Webinar from './pages/Webinar.jsx';
-import { socket } from './socket.js';
-import { useEffect, useState } from 'react';
+import io from "socket.io-client";
+import { useEffect } from 'react';
 
+const socket = io("/");
 function App() {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-
   useEffect(()=>{
-    socket.on('connect', () => {
-      setIsConnected(true);
-    });
-    socket.on('disconnect', () => {
-      setIsConnected(false);
-    });
-
-    return () => {
-      socket.off('connect');
-      socket.off('disconnect');
+    socket.on("connect",()=>{
+      console.log("connected")
+    })
+    return ()=>{
+      socket.disconnect()
     }
   },[])
-
-
   return (
     <div className="App">
       <Routes>
         <Route exact path='/' element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login socket={socket} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         {/* mentor */}
@@ -60,7 +50,7 @@ function App() {
         <Route path="/mentor" element={<Mentor />} />
         <Route path="/mentor/dashboard" element={<MentorDashboard />} />
         <Route path="/mentor/applications" element={<MentorApplication />} />
-        <Route path="/mentor/inquiries" element={<MentorInquiries />} />
+        <Route path="/mentor/inquiries" element={<MentorInquiries socket={socket} />} />
         <Route path="/mentor/settings" element={<MentorSettings />} />
         <Route path="/mentor/addEvent" element={<AddEvent />} />
         {/* admin  */}
@@ -74,10 +64,9 @@ function App() {
         {/* mentee  */}
         <Route path="/mentee/home" element={<Home />} />
         <Route path="/mentee/application" element={<Applications />} />
-        <Route path="/mentee/inquiries" element={<Inquiries />} />
+        <Route path="/mentee/inquiries" element={<Inquiries socket={socket} />} />
         <Route path="/mentee/wishlist" element={<Wishlist />} />
         <Route path="/mentor/browse" element={<Browse />} />
-        <Route path="mentor/chat" element={<Messenger own={true} />} />
         <Route path='/settings' element={<Settings />} />
         <Route path='/mentee/settings' element={<Settings />} />
         <Route path="/mentee/webinar" element={<Webinar />} />

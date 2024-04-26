@@ -6,7 +6,7 @@ import { Alert, AlertTitle } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
-const Login = () => {
+const Login = ({socket}) => {
   const navigate = useNavigate();
   const [isMentee, setIsMentee] = useState(true);
   const [initial, setInitial] = useState(true);
@@ -39,14 +39,17 @@ const Login = () => {
         );
         console.log(response);
         if (isMentee) {
+          // socket.emit("online",{userId:response.data.user._id})
           navigate("/mentee/home");
         }
         else{
+          // socket.emit("online",{userId:response.data.user._id})
           navigate("/mentor/dashboard");
         }
       } catch (err) {
         console.log(err);
         //  set message we have to set setMessage as error
+        console.log(err)
         setWarning("error")
         setMessage(err.response.data.message);
       }
