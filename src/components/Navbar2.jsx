@@ -16,7 +16,6 @@ const Navbar2 = ({user, setUser, setLoading}) => {
                 setUser(data)
                 setLoading(false)
             }catch(err){
-                console.log(err)
                 if(err.response.data.errorMessage === "Please login first"){
                     navigate('/admin/login')
                 }

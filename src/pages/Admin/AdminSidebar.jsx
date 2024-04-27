@@ -5,11 +5,18 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EventIcon from '@mui/icons-material/Event';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AdminSidebar = ({ path, user }) => {
   const navigate = useNavigate();
-  const handleLogOut = () =>{
-    
+  const handleLogOut = async() =>{
+    try{
+      await axios.get('/api/auth/logout',{withCredentials:true})
+      navigate('/admin/login')
+    }
+    catch(err){
+      console.log(err)
+    }
   }
   return (
     <div className='bg-[#172e59] w-[300px] h-[92vh] flex flex-col justify-between'>

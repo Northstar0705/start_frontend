@@ -12,7 +12,7 @@ const AdminLogin = () => {
 
   const handleClick = async() =>{
     try{
-      axios.post('/api/auth/login',{...formData,isAdmin:true,isMentee:true},{withCredentials:true})
+      await axios.post('/api/auth/login',{...formData,isAdmin:true,isMentee:true},{withCredentials:true})
       navigate('/admin/dashboard')
     }catch(err){
       console.log(err)
@@ -42,7 +42,7 @@ const AdminLogin = () => {
           </div>
           <div className='flex flex-col'>
             <div className='text-gray-600 font-medium text-[15px]'>Password</div>
-            <input type="text" onChange={(e) => {
+            <input type="password" onChange={(e) => {
               setFormData({ ...formData, password: e.target.value })
             }} value={formData.password} className='border mt-0.5 border-gray-400 focus:border-2 focus:border-blue-500 px-2 rounded-md outline-none w-full py-1.5' />
           </div>

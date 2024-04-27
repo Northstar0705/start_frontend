@@ -29,10 +29,6 @@ const Messenger = ({ conversations, setConversations, user, socket }) => {
     }
     socket.on("send_message", (msg) => {
       console.log("send message", msg)
-      // console.log(selectedRef.current)
-      // conversations[selectedRef.current].chat.push(msg)
-      // setConversations([...conversations])
-      // console.log(conversations)
       if (msg.from === user._id) {
         conversations[selectedRef.current].chat.push(msg)
         setConversations([...conversations])

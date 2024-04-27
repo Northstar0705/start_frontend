@@ -3,12 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Navbar2 from '../../components/Navbar2'
 import AdminSidebar from './AdminSidebar'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Loader from "../../components/Loader"
 import axios from 'axios'
 
 const ViewApplication = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const [mentordata, setMentorData] = useState()
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         const getApplication = async () => {
             const { data } = await axios.get(`http://localhost:5000/api/admin/applications/${id}`, { withCredentials: true })
@@ -17,13 +20,16 @@ const ViewApplication = () => {
         getApplication()
     }, [id])
     return (
-        <div className='flex flex-col w-full'>
-            <Navbar2 path="mentor"/>
+        <div className='flex flex-col items-center w-full'>
+            <Navbar2 path="mentor" user = {user} setUser = {setUser} setLoading={setLoading}/>
             <div className='flex w-full h-[92vh] overflow-scroll'>
                 <div className=''>
                     <AdminSidebar path={'applications'} />
                 </div>
-                <div className='flex flex-col w-full p-5 h-[92vh] overflow-scroll'>
+                {loading && <div className='flex items-center w-full justify-center'>
+                    <Loader />
+                </div>}
+                {!loading && mentordata && <div className='flex flex-col w-full p-5 h-[92vh] overflow-scroll'>
                     <div className='flex w-full items-center justify-between'>
                         <ArrowBackIcon className='text-gray-600 cursor-pointer' onClick={() => navigate('/admin/applications')} />
                         <h2 className='text-xl text-gray-600 font-medium'>Mentor Application</h2>
@@ -105,7 +111,7 @@ const ViewApplication = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>}
             </div >
         </div >
     )
